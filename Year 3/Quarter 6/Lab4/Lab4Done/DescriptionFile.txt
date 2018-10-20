@@ -1,0 +1,35 @@
+Reed Ceniviva
+CS 281
+Lab 4
+
+General Description:
+	during this lab we were tasked with creating 1 bit ALUs both structural and behavioural, and then
+	Using them to create 1 bit ALUs that could handle subtraction as well as overflow.
+
+Compiler/Environment Used:
+	For this lab I used Notepad to edit files, and compiled and simulated the files using GHDL as well as GTKWave.
+	I used Windows 10 for my operating system
+	
+Requirements to Run:
+	The files can be compiled and simulated using GHDL and GTKWave, the files can be inspected using a word processor like notepad
+
+Files:
+	ALU1B_S		Behavioral model of 1-bit ALU that supports subtraction.
+	ALU1S_S 	Structural model of 1-bit ALU that supports subtraction.
+	ALU1B_S_O	Behavioral model of 1-bit ALU that supports overflow detection and subtraction
+	ALU1S_S_O	Structural model of 1-bit ALU that supports overflow detection and subtraction
+
+	
+Testing:
+	The testing for this lab was down mostly through the use of GTKWave which I've been having difficulties running correctly,
+		Even looking at the files from last lab as a guide on how to get it to run correctly, I still ran into many issues.
+
+Special/Interesting: 
+	This lab was much of the same from last lab as they built off each other. When I am able to get GTKWave working that is still
+		the more special aspect of this lab.
+
+Final Mentions:
+	Still getting the hang of the format and syntax of VHDL, still getting the hang of getting GTKWave to function properlly. but these
+		labs are functioning as a larger more complex type of scratch programming where the building blocks are provided and
+		then more information is needed from the user for the code to function properly. I think this is a useful way of introducing
+		a language and its concepts so it makes sense that we are doing it in this class.

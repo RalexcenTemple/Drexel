@@ -1,0 +1,83 @@
+
+<html>
+
+<head>
+	<title>CS 164 Form Field Verification Example</title>
+	<script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+	
+		function errorReport(field, description){
+		print(field + ": " + description)
+		}
+		
+		function errorCheck(){
+		var LN = form.lastName.value
+			if(LN.equals()){
+				errorReport(LN, "LastName cannot be empty")]
+			}
+		}
+		function print(text){
+		var result = text
+		form.DebuggingArea.value = result
+		}
+	
+	</script>
+</head>
+
+<body>
+<table WIDTH="100%" BORDER="0" CELLPADDING="8" BGCOLOR="#000066">
+  <tr> 
+    <td><h1><font COLOR="#FFCC66">Form Field Verifier</font> </h1></td>
+  </tr>
+</table>
+<p><i>You are to modify this form so that the values submitted by the user are 
+  verified for correctness.</i></p>
+<table BORDER="0" CELLPADDING="8" BORDERCOLOR="#CC0000" BGCOLOR="#FFCC66">
+  <tr> 
+    <td> <form NAME="userdata">
+        <p>&nbsp;</p>
+        <p><b>First Name: </b> 
+          <input NAME="firstName" TYPE="text" SIZE="35" />
+          <b>Middle Initial:</b> 
+          <input NAME="middleInitial" TYPE="text" SIZE="5" MAXLENGTH="1" />
+          <b>Last Name:</b> 
+          <input NAME="lastName" TYPE="text" SIZE="35" />
+        </p>
+        <p><b>Email Address: </b> 
+          <input NAME="emailAddress" TYPE="text" SIZE="80" />
+        </p>
+        <p><b>Date of Birth:</b> 
+          <input TYPE="text" NAME="dateOfBirth" />
+        </p>
+        <p> 
+          <input TYPE="button" VALUE="Submit" onClick="errorCheck()" />
+          <input TYPE="reset" NAME="reset" VALUE="Reset" />
+        </p>
+        <p>&nbsp;</p>
+        <p><b>DEBUGGING:</b> 
+          <textarea NAME="DebuggingArea" COLS="80" ROWS="10"></textarea>
+        </p>
+        <p>&nbsp; </p>
+      </form></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><b>Notes:</b> </p>
+<p>Use the <b>DEBUGGING</b> area to view values as follows:</p>
+<table BORDER="1" CELLPADDING="10" CELLSPACING="0" BORDERCOLOR="#000066" BGCOLOR="#FFFF99">
+  <tr> 
+    <td>
+<pre>function check(form)
+{
+  var str = form.lastName.value
+
+  var result =    "str=" + str + "\n"
+                + "str.substring(5,7)=" + str.substring(5,7) + "\n"
+
+  form.DebuggingArea.value = result
+}</pre>
+
+	</td>
+  </tr>
+</table>
+</body>
+</html>

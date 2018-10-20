@@ -1,0 +1,56 @@
+This is the file holding the answers to the questions for lab 9
+
+Debugging:
+
+Q1.1:What happened when you ran bug3? Use ls -ot, see if there are any new
+files in your directory
+
+A1:When I ran bug3 and gave it the string "Ceniviva" as input it gave me the
+message "Segmentation fault (core dumped)", it would seem that the file
+"core" was created as a result of running the program after checking the
+directory with ls -ot.
+
+Q1.2:In witch function did it bomb?
+A1.2:it bombed i think in inTable()
+
+Q1.3: For each, below, record what the problem was, and you how fixed it.
+
+A1.3.a:bug1.c:(common bug in C): the problem was that the scanf() function
+was expecting an 'int *' type and was instead given varaibles that
+represented just and int, to fix this I changed the 'n' argument to '&n'
+
+A1.3.b:bug2.c:(Common bug in C):I get an error sating that %d expects an
+argument of type int and how %f expects arguments of type double.since they
+are reverse of each other, I simply switched where the d and the f were
+located, this allowed the program to compile and return the correct output.
+
+A1.3.c:bug3.c:(when tested with inbug3 as input):As talked about in the
+first question, this file runs up until the inTable() function is hit. I
+switched the values that are viewed in the inTable function, I'm no longer
+getting a core file back after running the program. After looking closer I
+think that the error has to do with the size of st and the size of numLines
+in inTable() but I cant be sure and don't know how to test for it.
+
+A1.3.d: getting a similar error has part a of this list, about int * being
+expected and it being given an int. fixed that, now getting an Assertion
+error, 'n<5' failed aborted. with the way this program is set up I would
+have to rewrite much of it in order for it to work properly, you can only
+use number bellow the value of 5 with this program.
+
+Q1.4:Why can't the compiler catch this? You can uncover the problem by
+looking at a stack trace from when the program crashed (see the lab on how
+to do this)
+
+A1.4: The compiler does not catch this because the compile does not
+recognize the side effects of the function and doesn't know to through an
+error as a result. 
+
+Q1.5:What happens if you are using qsort to sort integers and accidentally
+pass the string comparison function?
+
+A1.5:I would imagine that the same problem would occure where the compile
+would not catch this mix up and the code would run into an error. Though I
+have a feeling that because of the way that the scmp function is set up it
+may still work. if the int's are able to be casted to a string then the
+strcmp function would possibly compare them correctly and return the correct
+output. 

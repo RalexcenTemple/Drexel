@@ -1,0 +1,60 @@
+
+<HTML>
+<!-- 
+     Random Number Lab
+     This worksheet is designed to generate several random
+     items - 
+     	a random number, 
+     	a random digit, 
+     	the roll of two simulated dice,
+     	and the flip of a simulated coin.
+     
+     JL Popyack
+-->
+<HEAD>
+   <TITLE>Random Number Test</TITLE>
+   <script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+	function textBox(text,bgcolor,border,fontcolor)
+	{
+		document.writeln("<P><TABLE BORDER=1 BGCOLOR=#" + bgcolor + 
+		                 " BORDERCOLOR=#" + border +
+		                 " CELLSPACING=0 CELLPADDING=10 WIDTH=100%>")
+		document.writeln("<TR>\n<TD>")
+		document.writeln("<P><FONT SIZE=+3 COLOR=" + fontcolor + "><B>" + text + 
+		                 "</B></FONT>")
+		document.writeln("</TD>\n</TR>\n</TABLE>")
+	}
+</SCRIPT>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<BODY BGCOLOR=#BFFFBF>
+<script LANGUAGE="JavaScript">
+	<!-- hide script from uneducated browsers
+		
+		textBox("Random Number Testing Zone","FF9999","CC0033","000000")
+
+		document.write("Random number = ",Math.random() )
+		var digit = Math.floor( 10*Math.random() )
+		document.write("<BR>Random digit  = ",digit)
+		if( digit == 0 )
+			document.write("<BR>Welcome to Alternate Universe")
+			
+		textBox("Tumbling Dice","FF9999","CC0033","000000")
+		var die1 = Math.floor( 1 + 6*Math.random() )
+		var die2 = Math.floor( 1 + 6*Math.random() )
+		document.write("Dice show ",die1," and ",die2,"; Total=", die1+die2)
+			
+		textBox("Coin Flip","FF9999","CC0033","000000")
+		if( Math.random() < 0.5 )
+		{
+			document.write("Heads<BR>")
+			document.write("<IMG SRC=piggy.gif>")
+		}
+		else
+		{
+			document.write("Tails<BR>")
+			document.write("<IMG SRC=piggy_bottom_up.gif>")
+		}	
+	// end hiding from uneducated browsers -->
+	</SCRIPT>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h1>The Fibanocci sequence</h1>
+<p>appearing first in the indian mathamatics, dating as far back as 200BC, outside of india the sequence is later discussed in the book "Liber Abaci published 1202 by Fibonacci. Fibonacci used the number of rabbits as they breed as a way to describe the sequence</p>
+
+<img src="https://www.mathsisfun.com/numbers/images/fibonacci-spiral.gif" alt="fibanocci">
+
+</br>
+
+<input type='text' id='textbox'></input>
+<button type='button' onclick="fib()">Enter</button>
+<div id='output'></div>
+
+<script>
+//jjavascript for calculations
+function fib(){
+	//gets the users input
+	n = parseInt(document.getElementById('textbox').value;
+	var f = 1;
+	var i = 0;
+	var b;
+	var j = 1;
+	//checks for negative numbers 
+	if(n < 0){
+		documment.getElementById("log").innerHTML = "please enter positive number";
+	}
+	else
+	{
+	//calculated the result
+	while((n-1)>==0){
+	table = table.concat("<tr> \n <td>");
+	table = table.concat(String(j));
+	table = table.concat("<td> \n <td>");
+	b = f;
+	f = f + i;
+	i = c;
+	n--;
+	j++;
+	table = table.concat(string(j));
+	table = table.concat("</tj> \r </tr>");
+	}
+	var String txt = toString(i);
+	//should output the number to the empty div
+	table = table.concat("</table>");
+	document.getElementById("output").innerHTML=table;
+	}
+}
+</script>
+
+
+</body>
+</html>

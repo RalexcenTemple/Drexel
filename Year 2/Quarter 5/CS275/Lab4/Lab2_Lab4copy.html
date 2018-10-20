@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>rac333_lab2</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script> 
+function request (){
+    var URL =  "http://jsonplaceholder.typicode.com/posts/1”;
+    $.ajax({
+        type: "GET",
+        url: URL,
+        contentType:  "application/json; charset=utf-8",
+        data: “{}”,
+        dataType: "jsonp",
+        success: function(msg) {
+        var  json= msg;  //NOTE since we said we’re getting back jsonp, jQuery did the parsing for us!
+      document.getElementById("current").innerHTML=json.title;
+    },
+        error: function (xhr, ajaxOptions, thrownError) {
+            document.getElementById("current").innerHTML= “Error fetching “ + URL;
+        }
+});
+        }
+    </script>
+</head>
+<body>
+<h1>Hourly Forcast Finder</h1>
+<input type='text' id="userin"><br><br>
+<button id="WenterB">Enter</button>
+<div id="displayKey"></div>
+<script>
+$(document).ready(function(){
+	$("#WenterB").click(function(){
+		$("#displayKey").text($("#userin").val());
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+#csh
+# A simple csh shell script to execute the awk command with the awk program
+# squash.awk
+
+awk -f squash.awk -

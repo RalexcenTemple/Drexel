@@ -1,0 +1,247 @@
+<html>
+<head>
+	<title> Console</title>
+	<script src=http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js> </script>
+	<link rel="stylesheet" type="text/css" href="home.css">
+</head>
+
+<body>
+	<div id="chatDiv"> </div>
+	<form id="messageForm">
+		<input type="text" id="messageBox" autocomplete="off" value="> "></input>
+	</form>
+</body>
+<script type="text/javascript">
+	//Set the Beggining of the inputbox
+	document.getElementById("messageBox").value = "> ";
+	//name the user with a unique anon
+	var name = "anon";
+	var rnd = Math.round(Math.random()*6)+1
+	var nameEnd = 0;
+	var named = false;
+	console.log("hi");
+	while(!named){
+		nameEnd +=rnd;
+		console.log(Exists(name+nameEnd));
+		if(Exists(name+nameEnd) == false){
+			name +=nameEnd;
+			CreateUser(name);
+			named = true;
+		}
+	}
+	var lastLoadTime = Math.floor(Date.now()/1000);
+	
+	//process the message but dont reset page
+	$('#messageForm').submit(function () {
+		ProcMessage();
+		return false;
+	});
+	//Try to stop changing the first 2 characters in the input box
+	 $("#messageBox").on("keydown", function(e) {
+        if (($(this).get(0).selectionStart == 1 ||$(this).get(0).selectionStart == 2)&& e.keyCode == 8) {
+			// don't write the character
+            return false;
+        }
+    });
+	//Start loading the chat
+	setInterval (LoadChat, 500);
+	
+	
+	function ProcMessage(){
+		var msg = document.getElementById("messageBox").value;
+		document.getElementById("messageBox").value = "> ";
+		if(msg[0] !=">" || msg[1] !=" "){
+			var URL = "http://localhost:8080/sendMessage?msg=Please%20leave%20that%20alone&sender=root&recipient=" + name;
+			SendMessage(URL);
+			document.getElementById("messageBox").value = "> ";
+			return;
+		}
+			
+		
+		msg = msg.substring(2)
+		if(msg[0] == "/"){
+			command(msg.substring(1));
+		}else{
+			var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender="+name+"&recipient=*";
+			SendMessage(URL);
+		}
+	}
+	
+	function command(cmd){
+		var cmds = cmd.split(" ");
+		if(cmds[0] == "name"){
+			if(cmds.length >1 && cmds[1] !=" " && cmds[1] !="*" && cmds[1] !="root" && cmds[1].length <11){
+				if(!Exists(cmds[1])){
+					name = cmds[1];
+					CreateUser()
+					var msg = "Your name has been set to " + name;
+					var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+					SendMessage(URL);
+					return true;
+				}else{
+					var msg = "That name is already taken";
+					var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+					SendMessage(URL);
+					return false;
+				}
+			}else{
+				var msg = "Please include a valid name. Must be at most 10 characters";
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+				SendMessage(URL);
+				return false;
+			}
+		}else if(cmds[0] == "textColor"){
+			if(cmds.length >1){
+				$("#messageBox").css("color",cmds[1]);
+				$("#chatDiv").css("color",cmds[1]);
+				return true;
+			}else{
+				var msg = "Please include a color";
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+				SendMessage(URL);
+				return false;
+			}
+		}else if(cmds[0] == "backgroundColor"){
+			if(cmds.length >1){
+				$("#messageBox").css("background",cmds[1]);
+				$("#chatDiv").css("background",cmds[1]);
+				$("body").css("background",cmds[1]);
+				return true;
+			}else{
+				var msg = "Please include a color";
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+				SendMessage(URL);
+				return false;
+			}
+		}else if(cmds[0] == "whisper"){
+			if(cmds.length >2 && Exists(cmds[1])){
+				var msg = "";
+				for(var i = 2; i < cmds.length; i ++){
+					msg += cmds[i] + " ";
+				}
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender="+name+"&recipient=" + cmds[1];
+				SendMessage(URL);
+				return true;
+			}else if(!Exitst(cmds[2])){
+				var msg = "There is no user with that name";
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+				SendMessage(URL);
+				//return false;
+			}else{
+				var msg = "Please provide a message followed by a user after the command";
+				var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+				SendMessage(URL);
+				//return false;
+			}
+		}else{
+			var msg = "Help:</br>/name <name>\tSets your name to something</br>/textColor <color>\t Sets the text color</br>/backgroundColor <color>\t Sets the background color</br>/whisper <person> <msg> Sends a private message to a person"; //TODO Write Help
+			var URL = "http://localhost:8080/sendMessage?msg="+msg+"&sender=root&recipient=" + name;
+			SendMessage(URL);
+			return true;
+		}
+		return false;
+	}
+
+	function getTimestamp(){
+		var date = new Date();
+		return date.toString();
+	}
+	function SendMessage(URL){
+			$.ajax({
+				type: "GET",
+				url: URL,
+				contentType: "application/json; charset=utf-8",
+				dataType: "text",
+				success: function(msg) {
+					var divEle = document.getElementById("chatDiv");
+					divEle.innerHTML = document.getElementById("chatDiv").innerHTML + msg;
+
+				},
+					error: function (xhr, ajaxOptions, thrownError) {
+					document.getElementById("messageBox").innerHTML = "Error sending message";
+				}
+			});
+	}
+
+	function LoadChat(){
+			document.getElementById("messageBox").focus();
+			console.log(lastLoadTime);
+			$.ajax({
+				type: "GET",
+				cache: false,
+				url: "http://localhost:8080/loadChat?recipient=" + name +"&lastLoad=" + lastLoadTime,
+				contentType: "application/json; charset=utf-8",
+				dataType: "text",
+				success: function(msg) {
+					var divEle = document.getElementById("chatDiv");
+					divEle.innerHTML = document.getElementById("chatDiv").innerHTML + msg;
+
+					lastLoadTime =  Math.floor(Date.now()/1000);
+					
+				},
+					error: function (xhr, ajaxOptions, thrownError) {
+					document.getElementById("chatDiv").innerHTML = "Error Recieving";
+				}
+			});
+
+	}
+
+	function CreateUser(){
+			$.ajax({
+				type: "GET",
+				cache: false,
+				url: "http://localhost:8080/createUser?userID=" + name,
+				contentType: "application/json; charset=utf-8",
+				dataType: "text",
+				success: function(msg) {
+					return true;
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					return false;
+				}
+			});
+	}
+
+	function Exists(id){
+		//console.log(id);
+		var exists = true;
+			$.ajax({
+				type: "GET",
+				cache: false,
+				url: "http://localhost:8080/userExists?userID=" + id,
+				contentType: "application/json; charset=utf-8",
+				dataType: "text",
+				async:false,
+				/*success: function(msg) {
+					console.log("idk");
+					if(msg == "true"){
+						exists = true;
+					}else{
+						exists = false;
+					}
+					
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					console.log("error");
+				}*/
+			}).done(function(msg){
+				console.log("idk");
+					if(msg == true.toString()){
+						exists = true;
+					}else{
+						exists = false;
+					}
+					
+			}).fail(function(data){
+				console.log("rarg");
+			});
+			return exists;
+	} 
+	
+	function CallBack(msg){
+		var exists = false;
+		
+		return exists;
+	}
+</script>
+</html>

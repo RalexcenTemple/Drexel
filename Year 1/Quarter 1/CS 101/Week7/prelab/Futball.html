@@ -1,0 +1,76 @@
+1+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!--
+	This page is provided for calculating and testing
+	arithmetic expressions.
+	
+-->
+<HEAD>
+<TITLE>Calculations in JavaScript</TITLE>
+</HEAD>
+
+<BODY>
+<H1>Quarterback Rating</H1>
+<P>Modify the JavaScript script on this page to calculate a Quarterback Rating.</P>
+<script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+
+// ---------------------------------------------------------------
+//  Fill in numerical values for A, C, Y, I, and T
+// ---------------------------------------------------------------
+
+	var A = 190    // Attempts
+	var C = 91     // Completions
+	var Y = 854     // Yardage
+	var I = 2     // Interceptions
+	var T = 6     // Touchdowns
+	
+	var CA = ((C/A)-0.3)/0.2
+	var YA = ((Y/A)-3)/4
+	var TA = ((T/A)/0.05)
+	var IA = ((0.095-(I/A))/0.04)
+	
+	var CAz = (C/A)
+	var YAz = (Y/A)
+	var TAz = (T/A)
+	var IAz = (I/A)
+	
+	var resultz = ((((CAz-.3)/.2)+((YAz-3)/4)+((TAz)/.05)+((.095-IAz)/.04))*(100/6))
+	
+	var result2 = (CA + YA + TA + IA)*(100/6)
+
+	var result = (((((C/A)-(0.30))/0.20)+(((Y/A)-(3.0))/4.0)+((T/A)/0.05)+(((0.095)-(I/A))/0.04))*(100.0/6.0))
+	
+	
+// ---------------------------------------------------------------
+//  Fill in an arithmtic expression for computing Rating,
+//  using the variables A, C, I, T, and Y shown above, plus any
+//  needed constants.
+// ---------------------------------------------------------------
+
+	var Rating = result
+
+	document.write("Simplified Quarterback Rating Formula:<P>"
+				+ "Attempts (A) = " + A + "<BR>"
+				+ "Completions (C) = " + C + "<BR>"
+				+ "Yardage (Y) = " + Y + "<BR>"
+				+ "Interceptions (I) = " + I + "<BR>"
+				+ "Touchdowns (T) = " + T + "<P>"
+				+ "Rating = " + Rating + "<BR>")
+			
+			
+	document.write("results2 = " + result2 + "<BR>"
+	+ "CA = " + CA + "<BR>"
+	+ "YA = " + YA + "<BR>"
+	+ "TA = " + TA + "<BR>"
+	+ "IA = " + IA + "<BR>"
+	+ "CAz = " + CAz + "<BR>"
+	+ "YAz = " + YAz + "<BR>"
+	+ "TAz = " + TAz + "<BR>"
+	+ "IAz = " + IAz + "<BR>"
+	+ "resultz = " + resultz)
+
+</SCRIPT>
+
+</BODY>
+</HTML>

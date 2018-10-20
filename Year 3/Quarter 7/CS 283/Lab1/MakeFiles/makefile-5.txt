@@ -1,0 +1,32 @@
+#define varaible PROG to test
+PROG=	test
+
+#define the variable OBJS as object files
+OBJS=	one.o main.o two.o three.o
+
+#define the varaible CFLAGS as -Wall and -g
+CFLAGS=	-Wall -g
+
+#target all with prerequiostes the value of the variable PROG
+#no recipe
+all: ${PROG}
+
+#target the value of the varaible PROG with prerequistes the value of the
+# varaible OBJS
+#recipe to echo the target file name and its dependencies
+# as well as compile the object files in OBJS
+#LDFLAGS serves no purpose here
+${PROG}: ${OBJS}
+	@echo $@ depends on $?
+	${CC} ${LDFLAGS} ${OBJS} -o ${PROG}
+
+#target archive member of .o with prerequistes of archive member of .c as
+# well as ext.h and one.h
+#recipe to compile the target files first prerequiste
+%.o: %.c ext.h one.h
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+#target clean w/out prerequistes
+#recipe to remove object files
+clean:
+	rm -f ${PROG} ${OBJS}

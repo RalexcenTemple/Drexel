@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Reed Ceniviva</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+<body>
+<!--requested banner element-->
+<img src="banner.png"></img>
+<!--Navigation for user-->
+<div>
+<ul>
+	<li id="home"><a href="#">Home</a></li>
+	<li><a href="#" id="lab3">Calculator</a></li>
+	<li><a href="#" id="lab2">Weather</a></li><!--79209a118c8318da-->
+</ul>
+</div><br><br>
+<div id="show"></div><br><br>
+<script>
+	var pick = "NONE";
+	//handles when home is called to clear the div
+	$("#home").click(function(){
+		$("#show").text("");
+	});
+	//fills div with body and script from lab 2
+	$("#lab2").click(function(){
+			pick = "lab2";
+			$("#test").text("lab2 called");
+			$("#test2").text("http://localhost:8080/" + String(pick));
+		var URL =  "http://localhost:8080/" + String(pick);
+		$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					dataType: "html",
+					success: function(result) {
+						var json = result;
+						$("#show").html(json);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#test").text("ERROR");
+					}
+				});
+		});
+	//fills div with body and script of lab3
+	$("#lab3").click(function(){
+			pick = "lab3";
+			$("#test").text("lab3 called");
+			$("#test2").text("http://localhost:8080/" + String(pick));
+		var URL =  "http://localhost:8080/" + String(pick);
+		$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					dataType: "html",
+					success: function(result) {
+						var json = result;
+						$("#show").html(json);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#test").text("ERROR");
+					}
+				});
+		});
+</script>
+</body>
+</html>

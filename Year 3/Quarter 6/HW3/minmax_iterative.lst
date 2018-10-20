@@ -1,0 +1,630 @@
+   1              		.file	1 "minmax_iterative.c"
+   4              		.text
+   5              	$Ltext0:
+  29              		.globl	A
+  30              		.data
+  31              		.align	2
+  32              	A:
+  33 ???? 0B000000 		.word	11
+  34 ???? 02000000 		.word	2
+  35 ???? 21000000 		.word	33
+  36 ???? 04000000 		.word	4
+  37 ???? 0F000000 		.word	15
+  38 ???? 06000000 		.word	6
+  39 ???? 07000000 		.word	7
+  40 ???? 08000000 		.word	8
+  41 ???? 09000000 		.word	9
+  42 ???? 0A000000 		.word	10
+  43              		.rdata
+  44              		.align	2
+  45              	$LC0:
+  46 ???? 4D696E4D 		.ascii	"MinMaxIt = \000"
+  46      61784974 
+  46      203D2000 
+  47              		.sdata
+  48              		.align	2
+  49              	$LC1:
+  50 ???? 202000   		.ascii	"  \000"
+  51              		.align	2
+  52              	$LC2:
+  53 ???? 0A00     		.ascii	"\n\000"
+  54              		.text
+  55              		.align	2
+  56              		.globl	main
+  57              	$LM1:
+   1:minmax_iterative.c **** int A[10] =
+   2:minmax_iterative.c ****  {
+   3:minmax_iterative.c ****   11, 2, 33, 4, 15, 6, 7, 8, 9, 10
+   4:minmax_iterative.c ****  };
+   5:minmax_iterative.c **** 
+   6:minmax_iterative.c **** main ()
+   7:minmax_iterative.c ****  {
+  59              		.ent	main
+  60              	main:
+  61              		.frame	$fp,32,$ra		# vars= 8, regs= 2/0, args= 16, extra= 0
+  62              		.mask	0xc0000000,-4
+  63              		.fmask	0x00000000,0
+  64 ???? E0FFBD27 		subu	$sp,$sp,32 #moves the pointer 32 spots down
+  65 ???? 1C00BFAF 		sw	$ra,28($sp) # stores the data in ra to offset by
+													#28 from the location of sp
+  66 ???? 1800BEAF 		sw	$fp,24($sp) #stores the contents of fp to the
+													#offset 24 spots from location sp
+  67 ???? 21F0A003 		move	$fp,$sp #here addu is used to add the value of
+													#sp to fp effectively moving the position
+  68 ???? 0000000C 		jal	__main  #completes the function decleration
+  68      00000000 
+  69              	$LBB2:
+  70              	$LM2:
+   8:minmax_iterative.c ****   int min, max; #completed when the code was
+																#loaded
+   9:minmax_iterative.c ****   MinMaxIt (A, 10, &min, &max) ;
+  72              		addu	$v0,$fp,20 #adds 20 to the contents of fp and
+														#store the result at v0
+  73              		la	$a0,A #loads A into the upper 16 bits of a0
+  74              		li	$a1,10 # performs bitwise OR operation, places
+												#result at a1
+  75              		addu	$a2,$fp,16 #adds contents of fp and the value
+														#16 and stores the result in a2
+  76              		move	$a3,$v0	#uses addu to add v0 to the contents
+													#of a3 affectivly moving it
+  77 ???? 0000000C 		jal	MinMaxIt #completes the function decleration
+														#and starts the function itself
+  77      00000000 
+  78              	$LM3:
+  10:minmax_iterative.c **** //printf ("MinMaxIt = %d %d \n", min, max) ;
+  11:minmax_iterative.c ****   print_str("MinMaxIt = ");
+  80              		la	$a0,$LC0 #uses lui to load LCO into the location
+												#a0
+  81 ???? 0000000C 		jal	print_str #jumps to the print string method
+													#while saving the location of pc+4
+  81      00000000 
+  82              	$LM4:
+  12:minmax_iterative.c ****   print_int(min); print_str("  ");
+  84              		lw	$a0,16($fp) #loads contents at location fp offset
+													#by 16 in the location a0
+  85 ???? 0000000C 		jal	print_int #jumps back to print_int while
+													#saving the location of the next line
+  85      00000000 
+  86              		la	$a0,$LC1		#uses lui to load LCI into a0
+  87 ???? 0000000C 		jal	print_str	#jumps to print_str and saves the
+														#locations of the next line
+  87      00000000 
+  88              	$LM5:
+  13:minmax_iterative.c ****   print_int(max); print_str("\n");
+  90              		lw	$a0,20($fp) #loads the contents of location fp
+													#offset by 20 into a0
+  91 ???? 0000000C 		jal	print_int #jumps back to print_int while
+													#saving the location of the next line
+  91      00000000 
+  92              		la	$a0,$LC2 #uses lui to store LC2 into the upper 16
+													#bits of a0
+  93 ???? 0000000C 		jal	print_str #jumps print_str and saves the
+														#location of the next line
+  93      00000000 
+  94              	$LM6:
+  14:minmax_iterative.c ****   return(0);
+  96              		move	$v0,$zero #uses addu to add zero to the
+														#contents of v0
+  97              	$LBE2:
+  98              	$LM7:
+  15:minmax_iterative.c ****  }
+ 100 ???? 21E8C003 		move	$sp,$fp	#uses addu to add the contents of fp
+													#to sp affectively moving sp
+ 101 ???? 1C00BF8F 		lw	$ra,28($sp) #loads contents at location offset 28
+													#from sp into ra
+ 102 ???? 1800BE8F 		lw	$fp,24($sp)	#loads contents at location offest 24
+													#from sp into fp
+ 103 ???? 2000BD27 		addu	$sp,$sp,32 #addui used to add the value 32 to
+													#sp and storing that change in sp
+ 104 ???? 0800E003 		j	$ra			#jumps to location ra
+ 104      00000000 
+ 105              		.end	main
+ 111              		.align	2
+ 112              		.globl	MinMaxIt
+ 113              	$LM8:
+  16:minmax_iterative.c **** 
+  17:minmax_iterative.c **** MinMaxIt (A, n, _min, _max)
+  18:minmax_iterative.c **** register int * A;
+  19:minmax_iterative.c **** register unsigned int n;
+  20:minmax_iterative.c **** register int * _min;
+  21:minmax_iterative.c **** register int * _max;
+  22:minmax_iterative.c ****  {
+ 115              		.ent	MinMaxIt
+ 116              	MinMaxIt:
+ 117              		.frame	$fp,16,$ra		# vars= 0, regs= 4/0, args= 0, extra= 0
+ 118              		.mask	0x40e00000,-4
+ 119              		.fmask	0x00000000,0
+ 120 ???? F0FFBD27 		subu	$sp,$sp,16			# uses addui and makes 16
+																							#->16
+ 121 ???? 0C00BEAF 		sw	$fp,12($sp) #saves contents at sp offset 12 to fp
+ 122              		sw	$s7,8($sp)	#save contents at sp offset 8 to s7
+ 123              		sw	$s6,4($sp)	#saves contents at sp offset 4 to s6
+ 124              		sw	$s5,0($sp)	#saves contents at sp to s5
+ 125 ???? 21F0A003 		move	$fp,$sp	#uses addu to add the contents of sp
+													#to fp
+ 126              		sw	$a0,16($fp) #saves contents at fp offset 16 to a0
+ 127              		sw	$a1,20($fp)	#saves contents at fp offset 20 to a1
+ 128              		sw	$a2,24($fp)	#saves contents at fp offset 24 to a2
+ 129              		sw	$a3,28($fp)	#saves contents at fp offset 28 to a3
+ 130              	$LBB3:
+ 131              	$LM9:
+  23:minmax_iterative.c ****   register int min asm ("s5") ;
+  24:minmax_iterative.c ****   register int max asm ("s6") ;
+  25:minmax_iterative.c ****   register int *p  asm ("s7") ;
+  26:minmax_iterative.c ****   min = A[0];
+ 133              		lw	$v0,16($fp)  #loads contents of fp offset 16 to
+																								#v0
+ 134              		lw	$s5,0($v0)	#loads contents of v0 to s5
+ 135              	$LM10:
+  27:minmax_iterative.c ****   max = A[0];
+ 137              		lw	$v1,16($fp) #loads contents of fp offset 16 to v1
+ 138              		lw	$s6,0($v1)	#loads v1 to s6
+ 139              	$LM11:
+  28:minmax_iterative.c ****   for (p = &A[1]; p < &A[n]; p ++ ) 
+ 141              		lw	$v0,16($fp)	#loads contents of location fp offset
+													#16 to v0
+ 142              		addu	$s7,$v0,4 	#addui to add the value 4 to the
+														#contents at v0 and then the result stored in s7
+ 143              	$L3:
+ 144              		lw	$v0,20($fp)	#loads the contents at locations fp
+													#offset 20 to the location v0
+ 145              		sll	$v0,$v0,2	#Shift contents left by 2 and
+														#stored in v0
+ 146              		lw	$v1,16($fp)		#load contents at fp offset 16 to
+														#v1
+ 147              		addu	$v0,$v1,$v0 #adds v1 and v0 and places result
+														#at v0
+ 148              		sltu	$v0,$s7,$v0	#puts 1 or 0 depending on if s7 is
+														#greater than or less than v0
+ 149              		bne	$v0,$zero,$L6 #if v0 and zero are not equal
+															#branch to l6
+ 150 ???? 00000008 		j	$L4				#otherwise jump to L4
+ 150      00000000 
+ 151              	$L6:
+ 152              	$LM12:
+  29:minmax_iterative.c ****    {
+  30:minmax_iterative.c ****     if ( * p < min) min = * p;
+ 154              		lw	$v0,0($s7)	#load s7 to v0
+ 155              		slt	$v0,$v0,$s5	#if v0 is less than s5 v0=0
+														#otherwise v0=1
+ 156              		beq	$v0,$zero,$L7 #if v0 = 0 (checking result of
+															#last statement) then jump to L7
+ 157              		lw	$s5,0($s7) #load content of s7 to s5
+ 158              	$L7:
+ 159              	$LM13:
+  31:minmax_iterative.c ****     if ( * p > max) max = * p;
+ 161              		lw	$v0,0($s7) #load s7 to v0
+ 162              		slt	$v0,$s6,$v0	#v0 is set 1 or 0 depending on the
+														#comparison of v0 and s6
+ 163              		beq	$v0,$zero,$L5 #if the last statement set v0 to
+															#zero then jump to L5
+ 164              		lw	$s6,0($s7)	#loads s7 to s6 otherwise
+ 165              	$LM14:
+ 167              	$L5:
+ 168              		addu	$s7,$s7,4 #adds s7 to the value 4 and stores
+													#it in s7
+ 169 ???? 00000008 		j	$L3	#jumps to L3
+ 169      00000000 
+ 170              	$L4:
+ 171              	$LM15:
+  32:minmax_iterative.c ****    }
+  33:minmax_iterative.c ****   * _max = max;
+ 173              		lw	$v0,28($fp) #loads contents at fp offset 28 to v0
+ 174              		sw	$s6,0($v0)	#stores v0 to s6
+ 175              	$LM16:
+  34:minmax_iterative.c ****   * _min = min;
+ 177              		lw	$v1,24($fp) #loads contents at fp offset 24 to v1
+ 178              		sw	$s5,0($v1)	#stores v1 to s5
+ 179              	$LM17:
+  35:minmax_iterative.c ****   return(0);
+ 181              		move	$v0,$zero #moves v0 zero places
+ 182              	$LBE3:
+ 183              	$LM18:
+  36:minmax_iterative.c ****  }
+ 185 ???? 21E8C003 		move	$sp,$fp #adjusts sp by fp spots with addu 
+ 186 ???? 0C00BE8F 		lw	$fp,12($sp) #loads contents sp offset 12 to fp
+ 187              		lw	$s7,8($sp)	#loads contents sp offset 8 to s7
+ 188              		lw	$s6,4($sp)	#loads sp offset 4 to s5
+ 189              		lw	$s5,0($sp)	#loads sp to s5
+ 190 ???? 1000BD27 		addu	$sp,$sp,16 #moves sp 16 spots
+ 191 ???? 0800E003 		j	$ra	#jumps to ra
+ 191      00000000 
+ 192              		.end	MinMaxIt
+ 203              		.align	2
+ 204              		.globl	__main
+ 205              	$LM19:
+  37:minmax_iterative.c **** 
+  38:minmax_iterative.c **** __main ()
+  39:minmax_iterative.c ****  {
+ 207              		.ent	__main
+ 208              	__main:
+ 209              		.frame	$fp,8,$ra		# vars= 0, regs= 1/0, args= 0, extra= 0
+ 210              		.mask	0x40000000,-8
+ 211              		.fmask	0x00000000,0
+ 212 ???? F8FFBD27 		subu	$sp,$sp,8
+ 213 ???? 0000BEAF 		sw	$fp,0($sp)
+ 214 ???? 21F0A003 		move	$fp,$sp
+ 215              	$LM20:
+  40:minmax_iterative.c ****   return(0);
+ 217              		move	$v0,$zero
+ 218              	$LM21:
+  41:minmax_iterative.c ****  }
+ 220 ???? 21E8C003 		move	$sp,$fp
+ 221 ???? 0000BE8F 		lw	$fp,0($sp)
+ 222 ???? 0800BD27 		addu	$sp,$sp,8
+ 223 ???? 0800E003 		j	$ra
+ 223      00000000 
+ 224              		.end	__main
+ 226              		.align	2
+ 227              		.globl	dummy
+ 228              	$LM22:
+  42:minmax_iterative.c **** 
+  43:minmax_iterative.c **** dummy (v)
+  44:minmax_iterative.c **** int v;
+  45:minmax_iterative.c ****  {
+ 230              		.ent	dummy
+ 231              	dummy:
+ 232              		.frame	$fp,8,$ra		# vars= 0, regs= 1/0, args= 0, extra= 0
+ 233              		.mask	0x40000000,-8
+ 234              		.fmask	0x00000000,0
+ 235 ???? F8FFBD27 		subu	$sp,$sp,8
+ 236 ???? 0000BEAF 		sw	$fp,0($sp)
+ 237 ???? 21F0A003 		move	$fp,$sp
+ 238              		sw	$a0,8($fp)
+ 239              	$LM23:
+  46:minmax_iterative.c ****   return(0);
+ 241              		move	$v0,$zero
+ 242              	$LM24:
+  47:minmax_iterative.c ****  }
+ 244 ???? 21E8C003 		move	$sp,$fp
+ 245 ???? 0000BE8F 		lw	$fp,0($sp)
+ 246 ???? 0800BD27 		addu	$sp,$sp,8
+ 247 ???? 0800E003 		j	$ra
+ 247      00000000 
+ 248              		.end	dummy
+ 251              		.align	2
+ 252              		.globl	print_int
+ 253              	$LM25:
+  48:minmax_iterative.c **** 
+  49:minmax_iterative.c **** print_int (value)
+  50:minmax_iterative.c **** int value;
+  51:minmax_iterative.c ****  {
+ 255              		.ent	print_int
+ 256              	print_int:
+ 257              		.frame	$fp,16,$ra		# vars= 8, regs= 1/0, args= 0, extra= 0
+ 258              		.mask	0x40000000,-8
+ 259              		.fmask	0x00000000,0
+ 260 ???? F0FFBD27 		subu	$sp,$sp,16
+ 261 ???? 0800BEAF 		sw	$fp,8($sp)
+ 262 ???? 21F0A003 		move	$fp,$sp
+ 263              		sw	$a0,16($fp)
+ 264              	$LBB4:
+ 265              	$LM26:
+  52:minmax_iterative.c ****   int code;
+  53:minmax_iterative.c ****   code = 1;
+ 267              		li	$v0,1			# 0x1
+ 268              		sw	$v0,0($fp)
+ 269              	$LM27:
+  54:minmax_iterative.c ****   asm (
+ 271              		lw	$v1,0($fp)
+ 272              		lw	$v0,16($fp)
+ 273              	 #APP
+ 274              		add $a0,$v0,$zero
+ 275              		add $v0,$v1,$zero
+ 276 ???? 0C000000 		syscall
+ 277              	$LM28:
+  55:minmax_iterative.c ****        "add $a0,%1,$zero\n\t"
+  56:minmax_iterative.c ****        "add $v0,%0,$zero\n\t"
+  57:minmax_iterative.c ****        "syscall"
+  58:minmax_iterative.c ****        :
+  59:minmax_iterative.c ****        : "r" (code), "r" (value));
+  60:minmax_iterative.c ****   return(value);
+ 279              	 #NO_APP
+ 280              		lw	$v0,16($fp)
+ 281              	$LBE4:
+ 282              	$LM29:
+  61:minmax_iterative.c ****  }
+ 284 ???? 21E8C003 		move	$sp,$fp
+ 285 ???? 0800BE8F 		lw	$fp,8($sp)
+ 286 ???? 1000BD27 		addu	$sp,$sp,16
+ 287 ???? 0800E003 		j	$ra
+ 287      00000000 
+ 288              		.end	print_int
+ 294              		.align	2
+ 295              		.globl	print_hex
+ 296              	$LM30:
+  62:minmax_iterative.c **** 
+  63:minmax_iterative.c **** print_hex (value)
+  64:minmax_iterative.c **** int value;
+  65:minmax_iterative.c ****  {
+ 298              		.ent	print_hex
+ 299              	print_hex:
+ 300              		.frame	$fp,40,$ra		# vars= 16, regs= 2/0, args= 16, extra= 0
+ 301              		.mask	0xc0000000,-4
+ 302              		.fmask	0x00000000,0
+ 303 ???? D8FFBD27 		subu	$sp,$sp,40
+ 304 ???? 2400BFAF 		sw	$ra,36($sp)
+ 305 ???? 2000BEAF 		sw	$fp,32($sp)
+ 306 ???? 21F0A003 		move	$fp,$sp
+ 307              		sw	$a0,40($fp)
+ 308              	$LBB5:
+ 309              	$LM31:
+  66:minmax_iterative.c ****   char s[10];
+  67:minmax_iterative.c ****   itox(value,s);
+ 311              		lw	$a0,40($fp)
+ 312              		addu	$a1,$fp,16
+ 313 ???? 0000000C 		jal	itox
+ 313      00000000 
+ 314              	$LM32:
+  68:minmax_iterative.c ****   print_str(s);
+ 316              		addu	$a0,$fp,16
+ 317 ???? 0000000C 		jal	print_str
+ 317      00000000 
+ 318              	$LM33:
+  69:minmax_iterative.c ****   return(value);
+ 320              		lw	$v0,40($fp)
+ 321              	$LBE5:
+ 322              	$LM34:
+  70:minmax_iterative.c ****  }
+ 324 ???? 21E8C003 		move	$sp,$fp
+ 325 ???? 2400BF8F 		lw	$ra,36($sp)
+ 326 ???? 2000BE8F 		lw	$fp,32($sp)
+ 327 ???? 2800BD27 		addu	$sp,$sp,40
+ 328 ???? 0800E003 		j	$ra
+ 328      00000000 
+ 329              		.end	print_hex
+ 335              		.align	2
+ 336              		.globl	print_str
+ 337              	$LM35:
+  71:minmax_iterative.c **** 
+  72:minmax_iterative.c **** print_str (str)
+  73:minmax_iterative.c **** char *str;
+  74:minmax_iterative.c ****  {
+ 339              		.ent	print_str
+ 340              	print_str:
+ 341              		.frame	$fp,16,$ra		# vars= 8, regs= 1/0, args= 0, extra= 0
+ 342              		.mask	0x40000000,-8
+ 343              		.fmask	0x00000000,0
+ 344 ???? F0FFBD27 		subu	$sp,$sp,16
+ 345 ???? 0800BEAF 		sw	$fp,8($sp)
+ 346 ???? 21F0A003 		move	$fp,$sp
+ 347              		sw	$a0,16($fp)
+ 348              	$LBB6:
+ 349              	$LM36:
+  75:minmax_iterative.c ****   int code;
+  76:minmax_iterative.c ****   code = 4;
+ 351              		li	$v0,4			# 0x4
+ 352              		sw	$v0,0($fp)
+ 353              	$LM37:
+  77:minmax_iterative.c ****   asm (
+ 355              		lw	$v1,0($fp)
+ 356              		lw	$v0,16($fp)
+ 357              	 #APP
+ 358              		add $a0,$v0,$zero
+ 359              		add $v0,$v1,$zero
+ 360 ???? 0C000000 		syscall
+ 361              	$LM38:
+  78:minmax_iterative.c ****        "add $a0,%1,$zero\n\t"
+  79:minmax_iterative.c ****        "add $v0,%0,$zero\n\t"
+  80:minmax_iterative.c ****        "syscall"
+  81:minmax_iterative.c ****        :
+  82:minmax_iterative.c ****        : "r" (code), "r" (str));
+  83:minmax_iterative.c ****   return(0);
+ 363              	 #NO_APP
+ 364              		move	$v0,$zero
+ 365              	$LBE6:
+ 366              	$LM39:
+  84:minmax_iterative.c ****  }
+ 368 ???? 21E8C003 		move	$sp,$fp
+ 369 ???? 0800BE8F 		lw	$fp,8($sp)
+ 370 ???? 1000BD27 		addu	$sp,$sp,16
+ 371 ???? 0800E003 		j	$ra
+ 371      00000000 
+ 372              		.end	print_str
+ 378              		.align	2
+ 379              		.globl	itox
+ 380              	$LM40:
+  85:minmax_iterative.c **** 
+  86:minmax_iterative.c **** /*
+  87:minmax_iterative.c ****   itox converts v to eight hex digits and stores them in str[]
+  88:minmax_iterative.c ****   such that str[0] is the leftmost digit (msd) and str[7] is the rightmost (lsd)
+  89:minmax_iterative.c **** */
+  90:minmax_iterative.c **** 
+  91:minmax_iterative.c **** itox (v,str)
+  92:minmax_iterative.c **** int v;
+  93:minmax_iterative.c **** char *str;
+  94:minmax_iterative.c ****  {
+ 382              		.ent	itox
+ 383              	itox:
+ 384              		.frame	$fp,24,$ra		# vars= 16, regs= 1/0, args= 0, extra= 0
+ 385              		.mask	0x40000000,-8
+ 386              		.fmask	0x00000000,0
+ 387 ???? E8FFBD27 		subu	$sp,$sp,24
+ 388 ???? 1000BEAF 		sw	$fp,16($sp)
+ 389 ???? 21F0A003 		move	$fp,$sp
+ 390              		sw	$a0,24($fp)
+ 391              		sw	$a1,28($fp)
+ 392              	$LBB7:
+ 393              	$LM41:
+  95:minmax_iterative.c ****   int i, j, t;
+  96:minmax_iterative.c ****   j = 7;
+ 395              		li	$v0,7			# 0x7
+ 396              		sw	$v0,4($fp)
+ 397              	$LM42:
+  97:minmax_iterative.c ****   for (i = 0; i < 8; i++)
+ 399 ???? 0000C0AF 		sw	$zero,0($fp)
+ 400              	$L15:
+ 401              		lw	$v0,0($fp)
+ 402              		slt	$v0,$v0,8
+ 403              		bne	$v0,$zero,$L18
+ 404 ???? 00000008 		j	$L16
+ 404      00000000 
+ 405              	$L18:
+ 406              	$LM43:
+  98:minmax_iterative.c ****    {
+  99:minmax_iterative.c ****     t = v & 0x0f;
+ 408              		lw	$v0,24($fp)
+ 409              		andi	$v0,$v0,0xf
+ 410              		sw	$v0,8($fp)
+ 411              	$LM44:
+ 100:minmax_iterative.c ****     if (t < 10) str[j] = t + '0';
+ 413              		lw	$v0,8($fp)
+ 414              		slt	$v0,$v0,10
+ 415              		beq	$v0,$zero,$L19
+ 416              		lw	$v1,28($fp)
+ 417              		lw	$v0,4($fp)
+ 418              		addu	$v1,$v1,$v0
+ 419              		lbu	$v0,8($fp)
+ 420              		addu	$v0,$v0,48
+ 421              		sb	$v0,0($v1)
+ 422 ???? 00000008 		j	$L20
+ 422      00000000 
+ 423              	$L19:
+ 424              	$LM45:
+ 101:minmax_iterative.c ****      else str[j] = t - 10 + 'A';
+ 426              		lw	$v1,28($fp)
+ 427              		lw	$v0,4($fp)
+ 428              		addu	$v1,$v1,$v0
+ 429              		lbu	$v0,8($fp)
+ 430              		addu	$v0,$v0,55
+ 431              		sb	$v0,0($v1)
+ 432              	$L20:
+ 433              	$LM46:
+ 102:minmax_iterative.c ****     v = v >> 4;
+ 435              		lw	$v0,24($fp)
+ 436              		sra	$v0,$v0,4
+ 437              		sw	$v0,24($fp)
+ 438              	$LM47:
+ 103:minmax_iterative.c ****     j--;
+ 440              		lw	$v0,4($fp)
+ 441              		addu	$v0,$v0,-1
+ 442              		sw	$v0,4($fp)
+ 443              	$LM48:
+ 445              		lw	$v0,0($fp)
+ 446              		addu	$v0,$v0,1
+ 447              		sw	$v0,0($fp)
+ 448 ???? 00000008 		j	$L15
+ 448      00000000 
+ 449              	$L16:
+ 450              	$LM49:
+ 104:minmax_iterative.c ****    }
+ 105:minmax_iterative.c ****   str[8] = 0;
+ 452              		lw	$v0,28($fp)
+ 453              		addu	$v0,$v0,8
+ 454              		sb	$zero,0($v0)
+ 455              	$LM50:
+ 106:minmax_iterative.c ****   return(v);
+ 457              		lw	$v0,24($fp)
+ 458              	$LBE7:
+ 459              	$LM51:
+ 107:minmax_iterative.c ****  }
+ 461 ???? 21E8C003 		move	$sp,$fp
+ 462 ???? 1000BE8F 		lw	$fp,16($sp)
+ 463 ???? 1800BD27 		addu	$sp,$sp,24
+ 464 ???? 0800E003 		j	$ra
+ 464      00000000 
+ 465              		.end	itox
+ 474              		.align	2
+ 475              		.globl	print_stack
+ 476              	$LM52:
+ 108:minmax_iterative.c **** 
+ 109:minmax_iterative.c **** print_stack (var0)
+ 110:minmax_iterative.c **** int var0;
+ 111:minmax_iterative.c ****  {
+ 478              		.ent	print_stack
+ 479              	print_stack:
+ 480              		.frame	$fp,40,$ra		# vars= 16, regs= 2/0, args= 16, extra= 0
+ 481              		.mask	0xc0000000,-4
+ 482              		.fmask	0x00000000,0
+ 483 ???? D8FFBD27 		subu	$sp,$sp,40
+ 484 ???? 2400BFAF 		sw	$ra,36($sp)
+ 485 ???? 2000BEAF 		sw	$fp,32($sp)
+ 486 ???? 21F0A003 		move	$fp,$sp
+ 487              		sw	$a0,40($fp)
+ 488              	$LBB8:
+ 489              	$LM53:
+ 112:minmax_iterative.c ****   int *p, v, i, k;
+ 113:minmax_iterative.c ****   k = 42;
+ 491              		li	$v0,42			# 0x2a
+ 492              		sw	$v0,28($fp)
+ 493              	$LM54:
+ 114:minmax_iterative.c ****   p = &var0;
+ 495              		addu	$v0,$fp,40
+ 496              		sw	$v0,16($fp)
+ 497              	$LM55:
+ 115:minmax_iterative.c ****   v = (int) p;
+ 499              		lw	$v0,16($fp)
+ 500              		sw	$v0,20($fp)
+ 501              	$LM56:
+ 116:minmax_iterative.c ****   print_hex(v);
+ 503              		lw	$a0,20($fp)
+ 504 ???? 0000000C 		jal	print_hex
+ 504      00000000 
+ 505              	$LM57:
+ 117:minmax_iterative.c ****   print_str("\n");
+ 507              		la	$a0,$LC2
+ 508 ???? 0000000C 		jal	print_str
+ 508      00000000 
+ 509              	$LM58:
+ 118:minmax_iterative.c ****   p = p - 20;
+ 511              		lw	$v0,16($fp)
+ 512              		addu	$v0,$v0,-80
+ 513              		sw	$v0,16($fp)
+ 514              	$LM59:
+ 119:minmax_iterative.c ****   for (i = 0; i < 82; i++)
+ 516 ???? 1800C0AF 		sw	$zero,24($fp)
+ 517              	$L22:
+ 518              		lw	$v0,24($fp)
+ 519              		slt	$v0,$v0,82
+ 520              		bne	$v0,$zero,$L25
+ 521 ???? 00000008 		j	$L23
+ 521      00000000 
+ 522              	$L25:
+ 523              	$LM60:
+ 120:minmax_iterative.c ****    {
+ 121:minmax_iterative.c ****     v = (int) p;    print_hex(v);    print_str("  ");
+ 525              		lw	$v0,16($fp)
+ 526              		sw	$v0,20($fp)
+ 527              		lw	$a0,20($fp)
+ 528 ???? 0000000C 		jal	print_hex
+ 528      00000000 
+ 529              		la	$a0,$LC1
+ 530 ???? 0000000C 		jal	print_str
+ 530      00000000 
+ 531              	$LM61:
+ 122:minmax_iterative.c ****     v =      *p;    print_hex(v);    print_str("\n");
+ 533              		lw	$v0,16($fp)
+ 534              		lw	$v0,0($v0)
+ 535              		sw	$v0,20($fp)
+ 536              		lw	$a0,20($fp)
+ 537 ???? 0000000C 		jal	print_hex
+ 537      00000000 
+ 538              		la	$a0,$LC2
+ 539 ???? 0000000C 		jal	print_str
+ 539      00000000 
+ 540              	$LM62:
+ 123:minmax_iterative.c ****     p++;
+ 542              		lw	$v0,16($fp)
+ 543              		addu	$v0,$v0,4
+ 544              		sw	$v0,16($fp)
+ 545              	$LM63:
+ 547              		lw	$v0,24($fp)
+ 548              		addu	$v0,$v0,1
+ 549              		sw	$v0,24($fp)
+ 550 ???? 00000008 		j	$L22
+ 550      00000000 
+ 551              	$L23:
+ 552              	$LM64:
+ 124:minmax_iterative.c ****    }
+ 125:minmax_iterative.c ****   return(k);
+ 554              		lw	$v0,28($fp)
+ 555              	$LBE8:
+ 556              	$LM65:
+ 126:minmax_iterative.c ****  }
+ 558 ???? 21E8C003 		move	$sp,$fp
+ 559 ???? 2400BF8F 		lw	$ra,36($sp)
+ 560 ???? 2000BE8F 		lw	$fp,32($sp)
+ 561 ???? 2800BD27 		addu	$sp,$sp,40
+ 562 ???? 0800E003 		j	$ra
+ 562      00000000 
+ 563              		.end	print_stack

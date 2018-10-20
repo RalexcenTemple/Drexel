@@ -1,0 +1,25 @@
+#defines the variable PROG as test
+PROG=	test
+
+#defines the variable OBJS as object files
+OBJS=	one.o main.o two.o three.o
+
+#defines CFLAGS as -Wall and -g
+CFLAGS=	-Wall -g
+
+#target all with prerequistes the value of PROG variable
+#no recipe 
+all: ${PROG}
+
+#target the value of PROG with prerequisites of the value of OBJS
+#recipe to echo the target filename and its dependencies
+#as well as to compile the object files
+#LDFLAGS serves no purpose here
+${PROG}: ${OBJS}
+	@echo $@ depends on $?
+	${CC} ${LDFLAGS} ${OBJS} -o ${PROG}
+
+#target clean w/out prerequisites
+#recipe to remove object files
+clean:
+	rm -f ls *.o

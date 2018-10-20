@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>TEST</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+</script>
+</head>
+<body>
+<h2 position="50%">Lab 3 Calculator</h2>
+<input type="text" id="seed"></input>
+</br></br>
+<select id="calcOpt">
+	<option value="defualt" font="grey">-------</option>
+	<option value="Factorial" text="Factorial">Factorial</option>
+	<option value="Summation" text="Summation">Summation</option>
+</select>
+</br></br>
+<button id="launch">Submit</button>
+</br></br>
+<div id="test">me</div></br></br>
+<div id="test2"> fuckc</div>
+<script>
+$(document).ready(function(){
+	$("#launch").click(function(){
+		var calc = $("#calcOpt").find("option:selected").html();
+		var ui =! isNaN($("#seed").val());
+		var seeded = $("#seed").val();
+		
+		
+		if(calc === "Factorial" && ui){
+			calc = "fact";
+		}else if(calc === "Summation" && ui){
+			calc = "sum";
+		}else{
+			$("#test").text("Please select one of the calculations to be performed");
+		};
+		$("#test").text("http://localhost:8080/" + calc + "/seed=" + seeded);
+		var myObj = '[{seed:' + String(seeded) + "}]";
+		var jsn = {"seed" : seeded};
+		$("#test2").text("" + JSON.stringify(jsn));
+	});
+});
+</script>
+</body>
+</html>

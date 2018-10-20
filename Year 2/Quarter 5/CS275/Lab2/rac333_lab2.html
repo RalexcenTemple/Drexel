@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>rac333_lab2</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script> 
+ $(document).ready(function(){
+        $("#WenterB").click(function(){
+            $("#displayKey").text($("#userin").val());
+            $(function(){
+    var URLF =  "http://api.wunderground.com/api/";
+    var key = $("#userin").val();
+    var URLB = "/geolookup/q/autoip.json";
+    var code = "";
+    var URL = URLF + key + URLB;
+    $("#displayKey").text(key);
+                //gets the zip
+    $.ajax({
+        type: "GET",
+        url: URL,
+        contentType:  "application/json; charset=utf-8",
+        dataType: "jsonp",
+        success: function(msg) {
+        var  json = msg;
+        $("#display").text(json.location.zip);
+            var ZIP = json.location.zip;
+            var URLL = "http://api.wunderground.com/api/" + key + "/hourly/q/" + ZIP + ".json";
+            //gets the forecast and creates html code to display in the div
+            $.ajax({
+                type: "GET",
+                url: URLL,
+                contentType:"application/json; charset=utf-8",
+                dataType: "jsonp",
+                success: function(newmsg) {
+                var jsonn = newmsg;
+                    for(var i=0; i < 25; i++){
+                        code = code.concat("<h2>"+i+" o'clock</h2><h3>" + jsonn.hourly_forecast[i].temp.english + " degrees</h3><br>" + "<img src= '" + jsonn.hourly_forecast[i].icon_url + "'><br><br>");
+                    }
+                $("#final").html(code);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+            var mssg = "Error fetching :";
+            $("#display").text(mssg + URLL);
+        }
+            });
+    },
+        error: function (xhr, ajaxOptions, thrownError) {
+            var mssg = "Error fetching :";
+            $("#display").text(mssg + URL);
+        }
+});
+        })
+        });
+    });
+    </script>
+</head>
+<body>
+<h1>Hourly Forcast Finder</h1>
+<p></p>
+<input type='text' id="userin"><br><br>
+<button id="WenterB">Enter</button>
+    <br>
+    <br>
+    <div id="displayKey"></div>
+    <br>
+    <div id="display"></div>
+    <br><br>
+    <div id="final"></div>
+<script>
+</script>
+</body>
+</html>

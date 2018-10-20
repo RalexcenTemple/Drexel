@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+
+<project default = "run" basedir='.'>
+
+	<target name="run" depends='prob1,prob2,prob3,prob4'/>
+
+	<target name="prob1" depends='compile'>
+		<echo message="'word' was passed to prob1"/>
+		<java classname='prob1'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value='word'/>
+      </java>
+	</target>
+
+	<target name="prob2" depends='compile'>
+		<echo message="prob2 is passed '42' and then '43'"/>
+		<java classname='prob2'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="42"/>
+		</java>
+      <java classname='prob2'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="43"/>
+      </java>
+   </target>
+
+
+	<target name="prob3" depends='compile'>
+		<echo message="prob3 is passed 2000 and then 2001"/>	
+		<java classname='prob3'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="2000"/>
+      </java>
+      <java classname='prob3'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="2001"/>
+      </java>
+		<java classname='prob3'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="36"/>
+      </java>
+   </target>
+
+
+	<target name="prob4" depends='compile'>
+		<echo message="prob4 is passed '0', '1', '2', '3' respectively"/>
+		<java classname='prob4'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="0"/>
+      </java>
+      <java classname='prob4'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="1"/>
+      </java>
+      <java classname='prob4'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="2"/>
+      </java>
+      <java classname='prob4'>
+         <classpath>
+            <pathelement path="${classpath}"/>
+            <pathelement location="."/>
+         </classpath>
+         <arg value="3"/>
+      </java>
+   </target>
+
+	<target name="compile">
+		<javac srcdir='./'/>
+	</target>
+
+	<target name="clean">
+		<delete>
+			<fileset dir="./">
+				<include name='*.class'/>
+			</fileset>
+		</delete>
+	</target>
+</project>

@@ -1,0 +1,141 @@
+<html>
+<head>
+<title value='Lab5'>Lab5</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+</script>
+</head>
+<body>
+<h1>Get Table</h1>
+<select id="calcOpt">
+	<option value="-------" font="grey">-------</option>
+	<option value="Students" text="Students">Students</option>
+	<option value="Courses" text="Courses">Courses</option>
+	<option value="Grades" text="Grades">Grades</option>
+</select>
+<button value="test" id="test">Table</button>
+<div id="show"></div>
+<div id="test2"></div><br>
+<h1>Search Transcript</h1>
+<select id="student">
+<option value="rac333" text="rac333">rac333</option>
+<option value="jal123" text="jal123">jal123</option>
+</select>
+<br>
+<select id="termyear">
+<option value="wi17" text="wi17">Wi17</option>
+<option value="Sp18" text="Sp18">Sp18</option>
+</select>
+<br>
+<button id="Search" value="Search">Search</button>
+<div id="Trans"></div><br>
+
+<script>
+$("#test").click(function(){
+		pick = "";
+		var calc = $("#calcOpt").find("option:selected").html();
+		//catch possible misinputs
+		if(calc === "Students"){
+			pick = "Students";
+			$("#test2").text("");
+		}else if(calc === "Courses"){
+			pick = "Courses";
+			$("#test2").text("");
+		}else if(calc === "Grades"){
+			pick = "Grades";
+			$("#test2").text("");
+		}else if(calc === "-------"){
+			$("#test2").text("Please select one of the tables to be shown");
+		};
+		var URL =  "http://localhost:8080/" + String(pick);
+		//$("#test2").text(URL);
+		if(pick=="Students"){
+		$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(result) {
+						var json = result;
+						var row = "<table><tr>\n<td>Student ID</td><td>First Name</td><td>Last Name</td><td>Birth Date</td><td>Major</td>\n</tr>";
+						for(var i = 0; i < json.length; i++){
+							row = row + "<tr> \n <td>" + String(json[i].idSTUDENT) + "</td><td>" +  String(json[i].firstName) + "</td><td>" +  String(json[i].lastName) + "</td><td>" +  String(json[i].birth) + "</td><td>" +  String(json[i].major) + "</td> \n </tr>";
+						}
+						row = row + "</table>";
+						$("#show").html(row);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#show").text("ERROR");
+					}
+				});
+		}
+		else if(pick=="Courses"){
+		$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(result) {
+						var json = result;
+						var row = "<table><tr>\n<td>Course ID</td><td>Course Description</td>\n<tr>";
+						for(var i = 0; i < json.length; i++){
+							row = row + "<tr> \n <td>" + String(json[i].courseID) + "</td><td>" +  String(json[i].courseDesc) + "</td> \n </tr>";
+						}
+						row = row + "</table>";
+						$("#show").html(row);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#show").text("ERROR");
+					}
+				});
+		}
+		else if(pick=="Grades"){
+		$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(result) {
+						var json = result;
+						var row = "<table><tr>\n<td>Course ID</td><td>Student ID</td><td>Term</td><td>Grade</td>\n</tr>";
+						for(var i = 0; i < json.length; i++){
+							row = row + "<tr> \n <td>" + String(json[i].courseID) + "</td><td>" +  String(json[i].studentID)+ "</td><td>" +  String(json[i].term) + "</td><td>" +  String(json[i].grade) + "</td> \n </tr>";
+						}
+						row = row + "</table>";
+						$("#show").html(row);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#show").text("ERROR");
+					}
+				});
+		}
+		});
+$("#Search").click(function(){
+	var student = $("#student").find("option:selected").html();
+	var termy = $("#termyear").find("option:selected").html();
+	jsn = {'student':student,'termyear':termy};
+	URL = "http://localhost:8080/Trans"
+	$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					data: jsn,
+					dataType: "json",
+					success: function(result) {
+						var json = result;
+						var row = "<table><tr>\n<td>Course ID</td><td>Student ID</td><td>Term</td><td>Grade</td>\n</tr>";
+						for(var i = 0; i < json.length; i++){
+							row = row + "<tr> \n <td>" + String(json[i].courseID) + "</td><td>" +  String(json[i].studentID)+ "</td><td>" +  String(json[i].term) + "</td><td>" +  String(json[i].grade) + "</td> \n </tr>";
+						}
+						row = row + "</table>";
+						$("#show").html(row);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#show").text("ERROR");
+					}
+				});
+
+});
+</script>
+</body>
+</html>

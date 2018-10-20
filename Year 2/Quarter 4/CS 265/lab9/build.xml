@@ -1,0 +1,23 @@
+<project>
+	<path>
+		<pathelement location = '.' />
+	</path>
+
+	<target name = "run" depends = "compile"/>
+
+	<target name = "gIntTest" depends = "gInt , test"/>
+
+	<target name = "gInt"/>
+
+	<target name = "test" depends = "compile">
+		<junit>
+			<formatter type='plain'/>
+			<test name="Test"/>
+		</junit>
+	</target>
+
+	<target name = "compile">
+			<javac srcdir='./' includeantruntime='false'/>
+	</target>
+
+</project>

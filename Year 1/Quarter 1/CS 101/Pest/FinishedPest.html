@@ -1,0 +1,242 @@
+
+<html>
+<head>
+<title>Simulation of a Virtual Pest</title>
+<script LANGUAGE="JavaScript"><!-- hide from uneducated browsers
+
+    var thePest
+
+    function VirtualPest(state,petaction,petsound,counter) 
+    {
+   
+    	this.state = state
+    	this.petaction = petaction
+    	this.petsound = petsound
+    	this.counter = counter
+    }
+
+    function Init() 
+    {
+  
+          thePest = new VirtualPest("happy","","",0)
+
+          ShowState(thePest)
+          setTimeout("Simulate(thePest)",1000)
+    }
+
+    function ShowState(pest) 
+    {
+    
+    	   var state = pest.state
+
+  
+    	  if( state == "happy" ) 
+    	  {
+                   document.getElementById("pik").src = "Done.png"
+    		   pest.petaction = "Stares at you"
+    		   pest.petsound = "purr purr hello"
+    	  }
+    	  else if( state == "excited" ) 
+    	  {
+              document.getElementById("pik").src = "Happy.png"
+    		  pest.petaction = "High Fives all around"
+    		  pest.petsound = "This is good"
+    	  }
+    	  else if( state == "angry" ) 
+    	  {
+              document.getElementById("pik").src = "Scarred.png"
+    		  pest.petsound = "Who are you?"
+    		  pest.petaction = "doesnt acknowledge you"
+    	  }
+    	  else if( state == "lonely" ) 
+    	  {  
+              document.getElementById("pik").src = "Sad.png"
+    		  pest.petsound = "Love me"
+    		  pest.petaction = "Stares at you longingly from a distance"
+    	  }
+    	  else if (state == "exhausted")
+    	  {
+              document.getElementById("pik").src = "Dissapoint.png"
+    		  pest.petaction = "Watched Food Network"
+    		  pest.petsound = "Let's not do anything"
+    	  }
+          else if (state == "full")
+          {
+              document.getElementById("pik").src = "Dissapoint.png"
+              pest.petaction = "lays on back"
+              pest.petsound = "No more please"
+          } 
+          else if(state == "dead"){
+              document.getElementById("pik").src = "Sad.png"
+              pest.petaction = "dead"
+              pest.petsound = "5you killed me doc"
+          }
+    	  
+    	  document.getElementById("state").value = pest.state
+    	  document.getElementById("petaction").value = pest.petaction
+    	  document.getElementById("petsound").value = pest.petsound
+    	  document.getElementById("counter").value = pest.counter
+    }
+    
+    function Pat(pest) 
+    {
+
+          var state = pest.state
+          
+          var n = Math.random()
+
+    	  if( state == "angry" && n > 0.5)
+    		  pest.state = "happy"
+    	  else if( state == "lonely" )
+    		  pest.state = "happy"
+          else if( state == "happy"){
+                  pest.state = "excited"
+          } else if (state == "angry" && n < 0.5){
+                  pest.state = "angry"
+          }
+
+    		 ShowState(pest)
+    }
+    
+    function feed(pest){
+        
+        var state = pest.state
+        
+        var n = Math.random()
+        
+        if(state == "angry" && n < .1 || state == "happy" && n > 0.5){
+            pest.state = "excited"
+        } else if(state == "happy" && n < 0.5){
+            pest.state = "full"
+        } else if(state == "full" && n < .1){
+            pest.state = "dead"
+        } else if(state == "excited" && n < 0.6){
+            pest.state = "full" 
+        }
+        
+        
+    }
+    
+    function Simulate(pest) 
+    {
+
+
+    	  pest.counter++  
+
+    	  var state = pest.state
+
+
+    	  var n = Math.random()
+
+
+
+    	  
+        if(n < .001){
+            pest.state = "dead"
+        }
+            else if( state == "exhausted" && n < 0.15 ) 
+    		  pest.state = "happy"
+    	  else if( state == "happy" && n < 0.05 )
+    		  pest.state = "angry"
+          else if( state == "angry" && n<.05){
+                  pest.state = "lonely"
+          } else if( state == "excited" && n < 0.05){
+               pest.state = "happy"
+          } else if( state == "excited" && n < 0.2){
+              pest.state = "exhausted"
+          } else if( state == "happy" && n < 0.02){
+              pest.state = "lonely"
+          } else if(state == "full" && n < .3){
+              pest.state = "happy"
+          }
+
+    		 ShowState(pest)
+
+    		setTimeout("Simulate(thePest)",1000)
+    }
+
+	function reverseDisplay(d) 
+	{
+		if(document.getElementById(d).style.display == "none") 
+		{ 
+			document.getElementById(d).style.display = "block"; 
+		}
+		else 
+		{ 
+			document.getElementById(d).style.display = "none"; 
+		}
+    }
+
+// end hiding from uneducated browsers  --></script>
+</head>
+<body BGCOLOR="#FFFFFF" onLoad="Init()">
+
+<table WIDTH="100%" BORDER="1" CELLPADDING="8" CELLSPACING="0" BORDERCOLOR="#24486C">
+  <tr>
+    <td BGCOLOR="#CC0000">
+      <h1><font COLOR="000000" FACE="Georgia, Times New Roman, Times, serif">PIZZA STEVE SIMULATOR</font>
+      </h1>
+    </td>
+  </tr>
+</table>
+
+  <p><a HREF="https://www.youtube.com/watch?v=vk9JUISEKsE"><font SIZE="-2">Reed Ceniviva</font></a></p>
+
+<hr />
+<table WIDTH="90%" BORDER="1" CELLPADDING="6" CELLSPACING="0" BORDERCOLOR="#336699" BGCOLOR="#ffffff">
+  <tr>
+    <td>
+      <h2><font COLOR="#cc0000" FACE="Georgia, Times New Roman, Times, serif">Pizza Steve,
+          The only</font></h2>
+      <table WIDTH="100%" BORDER="1" CELLPADDING="4" CELLSPACING="0" BORDERCOLOR="#ffffff">
+        <tr>
+          <td BGCOLOR="#000000">
+            <div ALIGN="CENTER"><img SRC="Done.png" ALT="UniQuack the Techno Duck" width=133 height=125 align=middle id="pik" name="pik" /></div>
+          </td>
+        </tr>
+      </table>
+      <p ALIGN="center"> </p>
+      <form ACTION="" method=POST NAME="Pest" ID="Pest">
+        <p ALIGN="CENTER"><b><font FACE="Georgia, Times New Roman, Times, serif">Pet
+              Sound:</font></b>
+          <input type=text name=petsound id=petsound VALUE="" size=50 />
+        </p>
+        <p ALIGN="CENTER"><b><font FACE="Georgia, Times New Roman, Times, serif">Pet
+              Action:</font></b>
+          <input type=text name=petaction id=petaction VALUE="" size=50 />
+        </p>
+		
+        <p>
+          <input type=button name=patButton id=patButton VALUE="Pat the Pizza Steve" onClick="Pat(thePest)" />
+          <input type="button" name="feedButton" id="feedButton" value="feed Pizza Steve" onClick="feed(thePest)"/>
+        </p>
+		
+		<p>&nbsp;</p>
+        <p><a href="javascript:reverseDisplay('status')">Show/hide pest's status variables:</a>
+		<div id="status">
+
+          State:
+          <input type="text" name="state" id="state" VALUE="" size="30" />
+
+          Step counter:
+          <input type="text" name="counter" id="counter" VALUE="" size="30" />
+        </div>
+		</p>
+		
+		</form>
+    </td>
+  </tr>
+</table>
+<p> </p>
+<p> </p>
+<hr />
+<h3></h3>
+<font SIZE="-1"><i>( </i> </font>
+<p align=center><img SRC="pest08.gif" width=400 height=205 align=middle /></p>
+<hr />
+<h3></h3>
+<font SIZE="-1"><i></i> </font>
+<p></p>
+<p> </p>
+</body>
+</html>

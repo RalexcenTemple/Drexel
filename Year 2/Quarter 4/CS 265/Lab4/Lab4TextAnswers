@@ -1,0 +1,120 @@
+These are the answers to the Text Exercises that are described in Chapter
+One of the practice of programming
+
+Exercise 1-1
+the use of TRUE and FALSE as variable names is not of usual convention as a
+true value is usually given the value 1 and false is apointed 0 and not the
+reverse. the fact that they are all capital conveys that they would be
+Constants which I'mm not sure if they are constants in the code but could
+also be an error in the naming of the variables. ch may be a short variable
+name for a local variable but I feel that it is too short to convey what it
+is actually meant to be or be used for, only in the context of being set to
+"getchar()" do I come to the assumption that it is meant to hold a
+character. getchar() isn't taking an argument or applied to a string as far
+as I can tell and I'mm guessing that's an error waiting to happen. EOF and
+not-eof are most likely related in one way or another but because of the
+difference in capitalization it makes it difficult to see that at first when
+also taking into account the type of variables they are being accosiated
+with, ((ch = getchar()) most likely evaluating to a string or character type
+and FALSE being of int type.
+
+Exercise 1-2
+		bool isSmaller(char *s, char *t) {
+			if(strcmp(s,t) < 1)
+				return true;
+			else
+				return false;
+		}
+
+Exercise 1-3
+I read the code aloud, I promise.
+
+Exercise 1-4
+	if((c != 'y')||(c != 'Y')) return;
+	
+	if(length > BUFSIZE){
+		length = BUFSIZE;
+	}
+
+	if(flag){
+		return 0;
+	else
+		return 1;
+	}
+
+	if(*line == ""){
+		quote = 1;
+	else
+		quote = 0;
+	}
+
+	bit = (val & 1) ? 1 : 0;
+
+
+Exercise 1-5
+I'm not entirely up to snuff on my C++ or C programming but I believe that
+this excerpt has an error as a result of the arguement types versus the
+variables that were passed to it. I also am not entirely sure but the return
+type may not be correct since it is looking for an int to be returned and it
+is returning a pointer value, which im almost sure can be represented by a
+number that is the address of the memory that stores the object but I'm not
+entirely sure.
+
+Exercise 1-6
+1.0 1.0
+2
+3
+----or----
+1.0
+1.0 2 3
+----or----
+1.0 1.0
+23
+----or----
+1.0 1.0
+2 3
+
+Exercise 1-7
+	if((istty(stdin)) || (istty(stdout)) || (istty(stderr)))
+		return (0);
+
+	if(retval != SUCCESS) {
+		return (retval);
+	else
+		return (SUCCESS);	 
+	}
+
+	for(k = 0; k < 5; k++){
+		x += dx;
+		scanf("%lf", &dx);
+	}
+
+Exercise 1-8
+	something like:
+	for(count = 0; count < total; cout++){
+		if(this.getName(count) == nametable.userName())
+			return true;
+	}
+
+Exercise 1-9
+the c parameter occurse twice in the macro definition and is prone to cause
+an error.
+
+Exercise 1-10 
+#define FTZMETER = 3.28084
+#define FTZMETER = (1/FTZMETER)
+#define MIZFT = 5280
+#define MIZKM =  MIZFT*FTZMETER
+#define SQMIZSQKM = MIZKM*MIZKM
+
+Exercise 1-11
+The first comment talking about what the function does and returns I think
+is neccassary.
+The second comment I think is alright, could even include the fact that it
+makes sure n doesnt go over the MAX but not entirely needed.
+The Third and fourth comment should be directly above or next to the
+function it is talking about as well as use more specific language, rather
+than write a message maybe writes a message in form header, body, trailer.
+increments line rather than add to line counter would have been more
+indicative of what was happening in the code.
+

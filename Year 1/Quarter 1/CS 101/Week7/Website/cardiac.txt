@@ -1,0 +1,59 @@
+002 // four original numbers
+800
+010
+069 
+011
+047 
+012
+056 
+013
+164 
+510
+011
+074 
+511
+012
+009 
+512
+013
+096
+513
+
+
+020 // first pair of sums
+069
+110
+021
+074
+211
+
+ // putting sums in 30
+030
+630
+800
+530
+
+022 // second pair of sums
+009
+112
+023
+096
+213
+
+	// putting sums in 31
+031
+631
+800
+531
+
+130 // clear accumulator and add sum 1
+731 // subtract sum 2 from accumulator
+800
+040 // going to mem 40
+040
+640 // store accumulator to 40
+540 // put 40 to output
+
+
+
+

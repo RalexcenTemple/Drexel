@@ -1,0 +1,27 @@
+<html>
+<!--
+     COMMENTS
+     Reed Ceniviva
+-->
+<head>
+	<title>
+		Lab5
+	</title>
+</head>
+
+<body>
+
+	<p>spiffy stuff</p>
+	
+	<script LANGUAGE="JavaScript">
+	<!-- hide script from uneducated browsers
+	
+		document.write("sample text")
+		
+	
+	// end hiding from uneducated browsers -->
+	</script>
+
+</body>
+
+</html>

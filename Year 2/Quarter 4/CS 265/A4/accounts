@@ -1,0 +1,304 @@
+#!/usr/bin/env python
+
+from os import environ
+import datetime
+import sys
+import argparse
+
+#**************************************************************
+#starts the progra off, handles some of the processing of the logfile
+# to the point of being able to handle the data easier
+#uses argparse to handle the arguements passed to the program
+#**************************************************************
+def main():
+	if 'ACCT_LIST' in environ:
+		logFile = environ['ACCT_LIST']
+	else:
+		print("did not find environ file")
+		logFile = 'sample.db'
+	
+	with open(logFile) as log:
+		lines = log.read().splitlines()
+	
+	lol = []
+	
+	for line in lines:
+		eLine = line.split(':', 1)
+		iLine = eLine[1].split(':')
+		lol.append((eLine[0], iLine))
+	
+	
+	opt = argparse.ArgumentParser(description='handles gui for program', add_help=False)
+	opt.add_argument('-i', action='store_true')
+	opt.add_argument('-h', action='store_true')
+	opt.add_argument('-t', action='store_true')
+	opt.add_argument('-?', action='store_true')
+	
+	args = opt.parse_args()
+	
+	if args.i:
+			info(lol)
+	elif args.h:
+			history(lol)
+	elif args.t:
+			lol = trans(lol)
+	else:
+			usemsg()
+	
+	writeToLog(lol)
+	sys.exit()
+
+#**************************************************************
+#starts most of the functions to give the user some interface to use
+#takes: the list of lists that is created from file
+#returns: the account number of the account that the user chooses
+#**************************************************************
+def display(lol):
+	upDict = []
+	for x in lol:
+		isin = False
+		if len(upDict) == 0:
+			upDict.append(x)
+		for  z in upDict:
+			if int(x[0]) == int(z[0]):
+				isin = True
+		
+		if isin == False:
+			upDict.append(x)
+	
+	n = 1
+	for y in upDict:
+		print(str(n) + ") " + y[1][0] + " " + y[0])
+		n += 1
+	
+	print("q)uit" + "\n")
+	
+	ui = raw_input("Enter choice => ")
+	if ui is 'q':
+		writeToLog(lol)
+		sys.exit()
+	elif ui == "0":
+		return 0
+	else:
+		try:
+			UI = int(ui)
+			UI -= 1
+			try:
+				key = upDict[UI][0]
+				return key
+			except IndexError:
+				print("Invalid input, exiting program")
+				sys.exit()
+			
+		except ValueError:
+			print("Invalid input, exiting program")
+			sys.exit()
+	
+
+#**************************************************************
+#Function meant to find the total balance left in a account
+#takes: all the data from the input file and the key of the account
+#that the function is to get the balance of
+#returns: the total balance of the account the accounter number matches
+#**************************************************************
+def balance(lol, key):
+	holds = 0
+	for x in lol:
+		if x[0] == key:
+			if x[1][2] is "D":
+				holds += int(float(x[1][3]))
+			else:
+				holds -= int(float(x[1][3]))
+	
+	return holds 
+
+	
+#**************************************************************
+#handles the -i arguement for the accounts program, returns information
+# of the account that the user chooses
+#takes: the list of lists that is created at the begining that holds
+# the data from the log file that is used as input
+#returns: output to the console that is formated as the assignment says
+#**************************************************************
+def info(lol):
+	print("  Info  ")
+	print("--------")
+	key = display(lol)
+	holds = 	balance(lol, key)
+	for x in lol:
+		if x[0] is key:
+			name = x[1][0]
+	print("\n")
+	print("     account #: " + key )
+	print("          name: " + name )
+	print("       balance: " + str(holds))
+	print("\n")
+	info(lol)
+	
+
+#**************************************************************
+#handles the -h arguement for the accounts program, shows in easy
+# to read format the history of a choosen account
+#takes: The list of lists that is created at the begining from the
+# log file that is taking in a input
+#returns: output to the consol that allows the user to see 
+# the history of the deposits and withdrawals of a choosen account
+#**************************************************************
+def history(lol):
+	print(" History ")
+	print("---------")
+	key = display(lol)
+	print("\n")
+	for x in lol:
+		if x[0] == key:
+			if x[1][2] is "W":
+				print("     " + x[1][1] + " withdrawal $" + x[1][3])
+			elif x[1][2] is "D":
+				print("     " + x[1][1] + " deposit    $" + x[1][3])
+	print("" + "\n")
+	history(lol)
+
+
+def check(lol, anum):
+	for i in lol:
+		if i[0] == anum:
+			return False
+	return True	
+
+
+def createA(lol):
+		name = raw_input("please enter full name here: ")
+		pin = False
+		dateStr = getTimeStamp()
+		while pin is False:
+			anum = raw_input("please enter a 4 digit account number: ")
+			if check(lol, anum):
+				print("Thank you for Opening an Account")
+				print("Your account information is:")
+				print("          Name: " + name)
+				print("   Date Opened: " + dateStr)
+				print("Account number: ****")
+				print("       Balance: 00.00")
+				newac = (str(anum), (str(name), str(dateStr), "D", "00.00"))
+				return newac
+				pin = True
+			else:
+				print("please enter a different account number")
+				pin = False
+
+#**************************************************************
+#handles the -t arguement for the accounts program, provides some gui
+# so that the user can creat a new transacion to be included in the
+# log
+#takes: a list of lists that contain the information from the log file
+#returns: an updated list of lists to be used to update the log file
+#**************************************************************
+def trans(lol):
+	print("Transaction")
+	print("-----------")
+	print("0) new Account")
+	dateStr = getTimeStamp()
+	key = display(lol)
+	if key == 0:
+		newac = createA(lol)
+		#print(newac)
+		lol.append(newac)
+		lol2 = lol
+		trans(lol2)
+	else:
+		for x in lol:
+			if x[0] is key:
+				account = x
+		print("Would you like to make a:")
+		print("w) Withdrawal")
+		print("d) Deposite")
+		print("q)uit")
+		print("\n")
+		tran = raw_input("Enter choice here=> ")
+		if tran is "w":
+			amou = raw_input("Enter amount to withdrawal: ")
+			newTrans = (account[0], (account[1][0], dateStr,"W",amou)) 
+			lol.append(newTrans)
+		elif tran is "d":
+			amou = raw_input("Enter amount to deposite: ")
+			newTran = (account[0], (account[1][0], dateStr, "D",amou))
+			lol.append(newTran)
+		elif tran is "q":
+			 writeToLog(lol)
+		else:
+			print("invalid input: program will close")
+			writeToLog(lol)
+		print("\n")
+		print("Enter another transaction?")
+		print("y)es")
+		print("n)o")
+		print("\n")
+		cont = raw_input("Enter answer here => ")
+		if cont is "y":
+			lol2 = lol
+			trans(lol2)
+		elif cont is "n":
+			writeToLog(lol)
+		else:
+			print("incorrect input: exitting with changes")
+			writeToLog(lol)
+
+
+#**************************************************************
+#Gives the user an idea of how to use the command line utility
+#takes: nothing
+#returns: nothing, just output to the screen
+#**************************************************************
+def usemsg():
+	print("                     Usage Message                      ")
+	print("                     -------------                      ")
+	print("This program allows the user to view account information")
+	print("as well as create and record an account transaction. In ")
+	print("order to perform these actions you make type 'accounts' ")
+	print("followed by on of the following flags                \n ")
+	print("-i : allows you to view an account's information        ")
+	print("-h : allows you to view an accounts transaction history ")
+	print("-t : allows you to submit a withdrawal or deposite      ")
+	print("-? : allows you to read the use message for the program ")
+	print("for example 'accounts -h' will show an account's history")
+	print("--------------------------------------------------------")
+	sys.exit()
+
+#**************************************************************
+#get the current year, month, day for transaction time stamp
+#takes: nothing
+#returns: a string representing the current year month day in
+# proper format for the log
+#**************************************************************
+def getTimeStamp():
+	year = datetime.date.today().year
+	month = datetime.date.today().month
+	day = datetime.date.today().day
+	year -= 2000
+	if day < 10:
+		Day = "0" + str(day)
+		Str = ("" + str(year) + "." + str(month) + "." + Day + "")
+	else:
+		Str = ("" + str(year) + "." + str(month) + "." + str(day) + "")
+	
+	return Str
+	
+
+#**************************************************************
+#finishes out a run of the program by updating the log file
+#takes: a list of list representing the information in the log file
+# as well as the file that the list of lists was originally made from
+#returns: nothing, the original log file is cleared and the updated
+#information from the run of the program is written to the file
+#**************************************************************
+def writeToLog(lol):
+	logFile = open(environ['ACCT_LIST'],'w')
+	for x in lol:
+		Str = (x[0]+":"+x[1][0]+":"+x[1][1]+":"+x[1][2]+":"+x[1][3]+"\n")
+		logFile.write(Str)
+	sys.exit()
+
+#starts the main function main()
+if __name__ == '__main__':
+	main()
+

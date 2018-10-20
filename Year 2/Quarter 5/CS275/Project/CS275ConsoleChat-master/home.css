@@ -1,0 +1,17 @@
+body {
+    background: black;
+    outline: none;
+}
+#messageBox {
+    background: black;
+    border: black;
+    color: white;
+    outline: none;
+	width: 100%;
+}
+#chatDiv {
+    backgound: black;
+    border: black;
+    color:white;
+    outline: none;
+}

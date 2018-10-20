@@ -1,0 +1,37 @@
+Lab3 Questions and Answers
+
+Q1:match all lines that contain the string 'the'
+A1:grep 'the' file
+
+Q2:match all lines that contain the word 'the' (not as a substring of a
+larger word
+A2:grep '\<the\>' file
+
+Q3:match all the lines that conatin the word 'Just'
+A3:grep 'Just' file
+
+Q4:match all the lines that contain 'Just' or 'just'
+A4:grep -i 'just' file
+
+Q5:match all lines that start with the word 'Just' or 'just'
+A5:grep -i '^just' file
+
+Q6:match all lines that contain the word bad or mad
+A6:grep 'bad\|mad' file
+
+Q7:match all lines that contain the word death or breath
+A7:grep 'death\|breath' file
+
+Q8:match all lines that end with you. Trailing puncuation is acceptable (so,
+possibly followed by a period or a comma)
+A8:grep '\<you*[.,]$' file
+
+Q9:match lines that have leading whitespace
+A9:grep '^\s' file
+
+Q10:match lines are empty?
+A10:grep '^$' file
+
+Q11:How many are there?
+A11:grep -c '^$' file
+

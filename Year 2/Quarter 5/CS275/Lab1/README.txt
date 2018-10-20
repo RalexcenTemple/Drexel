@@ -1,0 +1,1 @@
+to run the code simply enter the number you want the fibanocci result of in the text field bellow the picture and hit enter, then the result should be displayed bellow.

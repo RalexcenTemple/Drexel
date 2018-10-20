@@ -1,0 +1,97 @@
+<HTML>
+
+<!-- 
+     Form template
+     
+     This worksheet contains a simple
+     "skeleton form" with two text boxes
+     (named input and output) and one button
+     labeled "Process Form".
+     
+     A function called "Process" is provided
+     which provides the framework for retrieving
+     the value of input and returning a value in 
+     output.
+     
+     JL Popyack
+-->
+
+<HEAD>
+    <TITLE>Form Template</TITLE>
+    
+    <script LANGUAGE="JavaScript">
+    <!-- hide from uneducated browsers
+
+	function Process(form)
+	{
+		// ------------------------------------------------
+		// This statement copies the value in the input
+		// box to a variable called text
+		// ------------------------------------------------
+		
+				var text = form.input.value
+		
+				var result
+
+		// ------------------------------------------------
+		// This statement creates a variable named n
+		// which contains the numerical value of text
+		// if text is an integer.  
+		// If text is a number containing a decimal
+		// point, n contains only the integer part.
+		// If text is not a number, n will contain
+		// the string "NaN".
+		// ------------------------------------------------
+		
+				var n = parseInt(text)
+				if(n<0){
+				result = "NEGATIVE"
+				} else if (n == 0){
+				
+				result = "ZERO"
+				
+				}else {
+				result = "POSITIVE"
+				}
+				
+				
+		
+		// ------------------------------------------------
+		// REPLACE THE STATEMENT BELOW WITH
+		// STATEMENTS THAT ASSIGN A VALUE TO 
+		// result BASED ON THE VALUE OF n
+		// ------------------------------------------------
+		
+				//result = n
+		
+		
+		// ------------------------------------------------
+		// This statement copies the value in the result
+		// variable to the output box
+		// ------------------------------------------------
+		
+				form.output.value = result
+		
+		
+		return ""
+	}
+
+  // end hiding from uneducated browsers  -->
+  </SCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR=lightsteelblue>
+
+<H1>Sample Form:</H1>
+
+<FORM>
+   <B>Input</B>: <INPUT TYPE="text" NAME="input" SIZE="50">
+   <P>
+   <B>Output</B>: <INPUT TYPE="text" NAME="output" SIZE="50">
+   <P>
+   <INPUT TYPE="button" VALUE="Process Input" onClick="Process(this.form)">
+</FORM>
+
+</BODY>
+</HTML>

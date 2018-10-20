@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Practicum part 1</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+</script>
+</head>
+<body>
+<h1>Route Info</h1><br><br>
+<select id="Route">
+	<option value="6" font="route 6">Route 6</option>
+	<option value="14" text="Route 14">Route 14</option>
+	<option value="17" text="route 17">Route 17</option>
+	<option value="20" text="route 20">Route 20</option>
+	<option value="23" text="route 23">Route 23</option>
+</select>
+<button id="submit">submit</button><br><br>
+<div id="test"></div><br>
+<div id="2test"></div><br>
+<div id="show"></div>
+
+<script>
+ $(document).ready(function(){
+        $("#submit").click(function(){
+		var ui = 0;
+		var route = $("#Route").find("option:selected").html();
+		if(route === "Route 6"){
+			ui = 6;
+			$("#2test").text(ui)
+		}else if(route === "Route 14"){
+			ui = 14;
+			$("#2test").text(ui)
+		}else if(route === "Route 17"){
+			ui = 17;
+			$("#2test").text(ui)
+		}else if(route === "Route 20"){
+			ui = 20;
+			$("#2test").text(ui)
+		}else if(route === "Route 23"){
+			ui = 23;
+			$("#2test").text(ui)
+		};
+    var URLF =  "http://www3.septa.org/hackathon/TransitView/?route=";
+    var key = ui;
+    var URL = URLF + key;
+	$("#test").text(URL)
+    $.ajax({
+        type: "GET",
+        url: URL,
+        contentType:  "application/json; charset=utf-8",
+        dataType: "jsonp",
+        success: function(msg) {
+			var json = msg;
+			var code="";
+			for(var i = 0; i < 5; i ++){
+				code = code + ("<h2> vehicle ID: <h2><p>" + json.bus[i].VehicleID + "</p><br>");
+				code = code + ("<h2> Block ID: <h2><p>" + json.bus[i].BlockID + "</p><br>");
+				code = code + ("<h2> Direction: <h2><p>" + json.bus[i].Direction + "</p><br>");
+				code = code + ("<h2> Destination: <h2><p>" + json.bus[i].destination + "</p><br><br>");
+				code = code + ("--------------------------------------------------------------------");
+			}
+			$("#show").html(code);
+		},
+        error: function (xhr, ajaxOptions, thrownError){
+            var mssg = "Error fetching :";
+            $("#show").text(mssg + URL);
+        }
+});
+        })
+        });
+</script>
+
+</body>
+</html>

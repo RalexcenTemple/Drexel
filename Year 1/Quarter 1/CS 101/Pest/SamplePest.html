@@ -1,0 +1,399 @@
+
+<html>
+<!--
+  This page presents a prototype Virtual Pest according to the 
+  requirements specified in assignments "Virtual Pest I/II/III",
+  CS 390:61-70, Fall 1999.  It is purposely minimal, behaving
+  according to the example used in those assignment descriptions.
+
+  The functions in the SCRIPT section are generally adaptable 
+  to pests designed according to the criteria given in Parts
+  I and II of the assignment.
+
+  The BODY section contains the user interface for the working 
+  pest, followed by state transition and behavior design instruments.
+  Normally only the user interface is included in the actual 
+  "pest page", however the other materials are included here for
+  instructional purposes.
+
+  JL Popyack, Nov. 1998/9
+-->
+<!-- Modification History
+
+  ---------------------------------------------------------------------
+  Replaced arrays with objects and attributes - PZ 11/01
+
+  ---------------------------------------------------------------------
+  Modified ShowState() to turn "off" old sounds and actions 
+  when pest changes state. - PZ 11/01
+
+  ---------------------------------------------------------------------
+  Modified parameter passing with cleaner names and less
+  intrinsic objects. - PZ 11/01
+
+  ---------------------------------------------------------------------
+  Fixed inconsistent line endings.
+  Removed duplicated lines from Simulate() :
+  
+    // This element is used to 
+      var state = pest.state.value
+  
+  JP 11/2002
+  ---------------------------------------------------------------------
+  Reformatted for better readability, JP 11/2003
+  
+  Reformatted HTML tages, JP 11/2006
+
+  Updated from "Tralfaz" to "UniQuack", JP 11/2008
+  Reformatted functions, JP 11/2008
+  
+  Changed references from "form.state.value" to "document.getElementById("state").value"
+  throughout, JP 11/2009
+  
+  Introduced "VirtualPest" object with properties to replace form attributes, JP 11/2009
+  
+  Added some comments and reformatted slightly, JP 11/2010
+  
+  Added show/hide for status variables, JP 11/2015
+  ---------------------------------------------------------------------
+-->
+<head>
+<title>Simulation of a Virtual Pest</title>
+<script LANGUAGE="JavaScript"><!-- hide from uneducated browsers
+
+    var thePest
+
+    function VirtualPest(state,petaction,petsound,counter) 
+    {
+    // ---------------------------------------------------------------------------
+    // This 'function' is actually a constructor for a Virtual Pest.  The Pest 
+    // should have properties 'state' and 'counter', and also properties for 
+    // each of the places where values are shown in the display form. 
+    // ---------------------------------------------------------------------------
+    	this.state = state
+    	this.petaction = petaction
+    	this.petsound = petsound
+    	this.counter = counter
+    }
+
+    function Init() 
+    {
+    // ---------------------------------------------------------------------------
+    // This function is called when the page is loaded initially.  
+    // It does the following:
+    //   Calls the pest constructor (VirtualPest) with initial values,
+    //     including the value of the form's "state" element, 
+    //   Calls ShowState in order to initialize the display
+    //   Sets the simulation in motion by preparing a call
+    //     to Simulate after 1000 msec (= 1 second).
+    // ---------------------------------------------------------------------------	
+    // To Do: preload images for pet pictures.
+    // ---------------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------------
+    //	  Create a new virtual pest (thePest) by providing 
+    //	    - initial state ("happy")
+    //	    - initial value for the petaction display box ("" - the empty string)	  
+    //	    - initial value for the petsound display box ("" - the empty string)	  
+    //	    - initial value for the counter - the number of times Simulate is called (0).
+
+          thePest = new VirtualPest("happy","","",0)
+
+          ShowState(thePest)
+          setTimeout("Simulate(thePest)",1000)
+    }
+
+    function ShowState(pest) 
+    {
+    // ---------------------------------------------------------------------------
+    // This function updates the form in order to 
+    // make visible the effects of the pest's state.
+    // No changes are made to the pest's state by
+    // this function
+    // ---------------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------------
+    // The pest's state is retrieved from the "state"
+    // element of the form
+    // ---------------------------------------------------------------------------
+    	   var state = pest.state
+
+    // ---------------------------------------------------------------------------
+    // The value of the state is examined and form
+    // elements are updated as appropriate.
+    // ---------------------------------------------------------------------------
+    // To Do: have pet's picture updated as well
+    // ---------------------------------------------------------------------------
+    	  if( state == "happy" ) 
+    	  {
+                   document.getElementById("pik").src = "Done.png"
+    		   pest.petaction = "Stares at you"
+    		   pest.petsound = "purr purr hello"
+    	  }
+    	  else if( state == "excited" ) 
+    	  {
+              document.getElementById("pik").src = "Happy.png"
+    		  pest.petaction = "High Fives all around"
+    		  pest.petsound = "This is good"
+    	  }
+    	  else if( state == "angry" ) 
+    	  {
+              document.getElementById("pik").src = "Scarred.png"
+    		  pest.petsound = "Who are you?"
+    		  pest.petaction = "doesnt acknowledge you"
+    	  }
+    	  else if( state == "lonely" ) 
+    	  {  
+              document.getElementById("pik").src = "Sad.png"
+    		  pest.petsound = "Love me"
+    		  pest.petaction = "Stares at you longingly from a distance"
+    	  }
+    	  else if (state == "exhausted")
+    	  {
+              document.getElementById("pik").src = "Dissapoint.png"
+    		  pest.petaction = "Watched Food Network"
+    		  pest.petsound = "Let's not do anything"
+    	  }
+          else if (state == "full")
+          {
+              document.getElementById("pik").src = "Dissapoint.png"
+              pest.petaction = "lays on back"
+              pest.petsound = "No more please"
+          } 
+          else if(state == "dead"){
+              document.getElementById("pik").src = "Sad.png"
+              pest.petaction = "dead"
+              pest.petsound = "5you killed me doc"
+          }
+    	  
+    	  document.getElementById("state").value = pest.state
+    	  document.getElementById("petaction").value = pest.petaction
+    	  document.getElementById("petsound").value = pest.petsound
+    	  document.getElementById("counter").value = pest.counter
+    }
+    
+    function Pat(pest) 
+    {
+    // ---------------------------------------------------------------------------
+    // This function is called when the "Pat Dog" 
+    // button is clicked.  This button only has an
+    // effect if the pest is in the "angry" or "lonely"
+    // state.  Otherwise, nothing is changed.
+    // ---------------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------------
+    // The pest's state is retrieved from the "state"
+    // element of the form
+    // ---------------------------------------------------------------------------
+          var state = pest.state
+          
+          var n = Math.random()
+    // ---------------------------------------------------------------------------
+    // The pest's state is changed as appropriate:
+    // ---------------------------------------------------------------------------
+    	  if( state == "angry" && n > 0.5)
+    		  pest.state = "happy"
+    	  else if( state == "lonely" )
+    		  pest.state = "happy"
+          else if( state == "happy"){
+                  pest.state = "excited"
+          } else if (state == "angry" && n < 0.5){
+                  pest.state = "angry"
+          }
+
+    // ---------------------------------------------------------------------------
+    // The display is updated to reflect the pest's state
+    // ---------------------------------------------------------------------------
+    		 ShowState(pest)
+    }
+    
+    function feed(pest){
+        
+        var state = pest.state
+        
+        var n = Math.random()
+        
+        if(state == "angry" && n < .1 || state == "happy" && n > 0.5){
+            pest.state = "excited"
+        } else if(state == "happy" && n < 0.5){
+            pest.state = "full"
+        } else if(state == "full" && n < .1){
+            pest.state = "dead"
+        } else if(state == "excited" && n < 0.6){
+            pest.state = "full" 
+        }
+        
+        
+    }
+    
+    function Simulate(pest) 
+    {
+    // ---------------------------------------------------------------------------
+    // This function is the heart of a simulation
+    // of state transitions reflected in a finite-state
+    // machine.
+    // ---------------------------------------------------------------------------
+
+    	  pest.counter++  // updates the Simulate counter.
+      
+    // ---------------------------------------------------------------------------
+    // The pest's state is retrieved from the "state"
+    // element of the form
+    // ---------------------------------------------------------------------------
+    	  var state = pest.state
+
+    // ---------------------------------------------------------------------------
+    // A random number in the interval (0,1) is generated.
+    // ---------------------------------------------------------------------------
+    	  var n = Math.random()
+
+    // ---------------------------------------------------------------------------
+    // The state changes according to the following rules:
+    //
+    // If the current state is "provoked", the pest has a 20%
+    // chance of becoming "lonely" and an 80% chance of remaining
+    // "provoked".
+    // If the current state is "happy", the pest has a 10%
+    // chance of becoming "angry" and a 90% chance of remaining
+    // "happy".
+    // ---------------------------------------------------------------------------
+
+    	  
+        if(n < .001){
+            pest.state = "dead"
+        }
+            else if( state == "exhausted" && n < 0.15 ) 
+    		  pest.state = "happy"
+    	  else if( state == "happy" && n < 0.05 )
+    		  pest.state = "angry"
+          else if( state == "angry" && n<.05){
+                  pest.state = "lonely"
+          } else if( state == "excited" && n < 0.05){
+               pest.state = "happy"
+          } else if( state == "excited" && n < 0.2){
+              pest.state = "exhausted"
+          } else if( state == "happy" && n < 0.02){
+              pest.state = "lonely"
+          } else if(state == "full" && n < .3){
+              pest.state = "happy"
+          }
+
+    // ---------------------------------------------------------------------------
+    // The display is updated to reflect the pest's state
+    // ---------------------------------------------------------------------------
+    		 ShowState(pest)
+
+    // ---------------------------------------------------------------------------
+    // The Simulate function is set to run again after a delay
+    // ---------------------------------------------------------------------------
+    		setTimeout("Simulate(thePest)",1000)
+    }
+    
+	// --------------------------------------------------------------------------- 
+	// from http://www.willmaster.com/blog/css/show-hide-floating-div.php
+	// By Will Bontrager 
+	// ---------------------------------------------------------------------------
+	function reverseDisplay(d) 
+	{
+		if(document.getElementById(d).style.display == "none") 
+		{ 
+			document.getElementById(d).style.display = "block"; 
+		}
+		else 
+		{ 
+			document.getElementById(d).style.display = "none"; 
+		}
+    }
+
+// end hiding from uneducated browsers  --></script>
+</head>
+<body BGCOLOR="#FFFFFF" onLoad="Init()">
+
+<table WIDTH="100%" BORDER="1" CELLPADDING="8" CELLSPACING="0" BORDERCOLOR="#24486C">
+  <tr>
+    <td BGCOLOR="#EDE4BA">
+      <h1><font COLOR="#24486C" FACE="Georgia, Times New Roman, Times, serif">PIZZA STEVE SIMULATOR</font>
+      </h1>
+    </td>
+  </tr>
+</table>
+
+  <p>This page presents a "Virtual Steve" for a "minimal virtual Steve Experience"
+    for use in every day life (Introduction to Computer Steve/Steve Engineering),
+    as described in advertisements<a HREF="https://www.youtube.com/watch?v=2YPf6QMZfhs" target=_part1>Like this
+        </a>, <a HREF="https://www.youtube.com/watch?v=0Kc7eiE2gus" target=_part2> These </a>, <a HREF="https://www.youtube.com/watch?v=8u2HHpQ8xOY" target=_part3> and here.
+        </a>. </p>
+  <p>Included in the page source are functions that: </p>
+  <ul>
+    <li>Will blow your mind,</li>
+    <li>initialize Steve's virtual beauty,</li>
+    <li>display indicators of Steve's personality,</li>
+    <li>react to every threat imaginable,</li>
+    <li>update the Steve's state of well being</li>
+  </ul>
+<p>You may use these functions at your own risk. </p>
+  <p><a HREF="https://www.youtube.com/watch?v=vk9JUISEKsE"><font SIZE="-2">Reed Ceniviva</font></a><font SIZE="-2">,
+Nov. 19XX. Updated Nov. 19XX, 20XX, 20XX, 20XX, 20XX</font></p>
+
+<hr />
+<table WIDTH="90%" BORDER="1" CELLPADDING="6" CELLSPACING="0" BORDERCOLOR="#336699" BGCOLOR="#EDE4BA" SUMMARY="Sample look and feel for first part of Virtual Pest assignment.">
+  <tr>
+    <td>
+      <h2><font COLOR="#24486C" FACE="Georgia, Times New Roman, Times, serif">Pizza Steve,
+          The only</font></h2>
+      <table WIDTH="100%" BORDER="1" CELLPADDING="4" CELLSPACING="0" BORDERCOLOR="#666666">
+        <tr>
+          <td BGCOLOR="#336699">
+            <div ALIGN="CENTER"><img SRC="Done.png" ALT="UniQuack the Techno Duck" width=133 height=125 align=middle id="pik" name="pik" /></div>
+          </td>
+        </tr>
+      </table>
+      <p ALIGN="center"> </p>
+      <form ACTION="" method=POST NAME="Pest" ID="Pest">
+        <p ALIGN="CENTER"><b><font FACE="Georgia, Times New Roman, Times, serif">Pet
+              Sound:</font></b>
+          <input type=text name=petsound id=petsound VALUE="" size=50 />
+        </p>
+        <p ALIGN="CENTER"><b><font FACE="Georgia, Times New Roman, Times, serif">Pet
+              Action:</font></b>
+          <input type=text name=petaction id=petaction VALUE="" size=50 />
+        </p>
+		
+        <p>
+          <input type=button name=patButton id=patButton VALUE="Pat the Duck" onClick="Pat(thePest)" />
+          <input type="button" name="feedButton" id="feedButton" value="feed Pizza Steve" onClick="feed(thePest)"/>
+        </p>
+		
+		<p>&nbsp;</p>
+        <p><a href="javascript:reverseDisplay('status')">Show/hide pest's status variables:</a>
+		<div id="status">
+          <!--
+          This item normally would not be displayed on the page, but for
+          purposes of program development and debugging, and also for use
+		  by assistants and graders, it is made visible.
+           -->
+          State:
+          <input type="text" name="state" id="state" VALUE="" size="30" />
+
+          Step counter:
+          <input type="text" name="counter" id="counter" VALUE="" size="30" />
+        </div>
+		</p>
+		
+		</form>
+    </td>
+  </tr>
+</table>
+<p> </p>
+<p> </p>
+<hr />
+<h3></h3>
+<font SIZE="-1"><i>( </i> </font>
+<p align=center><img SRC="pest08.gif" width=400 height=205 align=middle /></p>
+<hr />
+<h3></h3>
+<font SIZE="-1"><i></i> </font>
+<p></p>
+<p> </p>
+</body>
+</html>

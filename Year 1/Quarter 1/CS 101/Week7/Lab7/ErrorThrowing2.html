@@ -1,0 +1,103 @@
+
+<html>
+
+<head>
+	<title>CS 164 Form Field Verification Example</title>
+	
+</head>
+
+<body>
+<script>
+	
+		function errorReport(field, description){
+		alert(field + ": " + description)
+		}
+		
+		function errorCheck(){
+		checkEmpty(userdata.lastName)
+		checkEmpty(userdata.firstName)
+		
+		var email = userdata.emailAddress.value
+		if(email.indexOf("@",0)<0){
+				errorReport("Email Adress", "Must be a valid email")
+			}
+			
+		var dob = userdata.dateOfBirth.value
+		if(dob.length<10 || dob.length>10){
+				errorReport("Date of Birth", "Must contain a date in mm/dd/yyyy format")
+		}
+		
+		}
+		function checkEmpty(field){
+					if(field.value ==''){
+				errorReport(field.name, "this field cannot be empty")
+			}
+		}
+		function check(form)
+		{
+			var str = form.lastName.value
+
+			var result =    "str=" + str + "\n"
+                + "str.substring(5,7)=" + str.substring(5,7) + "\n"
+
+			form.DebuggingArea.value = result
+		}
+	</script>
+<table WIDTH="100%" BORDER="0" CELLPADDING="8" BGCOLOR="#000066">
+  <tr> 
+    <td><h1><font COLOR="#FFCC66">Form Field Verifier</font> </h1></td>
+  </tr>
+</table>
+<p><i>You are to modify this form so that the values submitted by the user are 
+  verified for correctness.</i></p>
+<table BORDER="0" CELLPADDING="8" BORDERCOLOR="#CC0000" BGCOLOR="#FFCC66">
+  <tr> 
+    <td> <form NAME="userdata">
+        <p>&nbsp;</p>
+        <p><b>First Name: </b> 
+          <input NAME="firstName" TYPE="text" SIZE="35" />
+          <b>Middle Initial:</b> 
+          <input NAME="middleInitial" TYPE="text" SIZE="5" MAXLENGTH="1" />
+          <b>Last Name:</b> 
+          <input NAME="lastName" TYPE="text" SIZE="35" />
+        </p>
+        <p><b>Email Address: </b> 
+          <input NAME="emailAddress" TYPE="text" SIZE="80" />
+        </p>
+        <p><b>Date of Birth:</b> 
+          <input TYPE="text" NAME="dateOfBirth" />
+        </p>
+        <p> 
+          <button onClick="Check(this.form)">Submit</button>
+          <input TYPE="reset" NAME="reset" VALUE="Reset"/>
+        </p>
+        <p>&nbsp;</p>
+        <p><b>DEBUGGING:</b> 
+          <textarea NAME="DebuggingArea" COLS="80" ROWS="10"></textarea>
+        </p>
+        <p>&nbsp; </p>
+      </form></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p><b>Notes:</b> </p>
+<p>Use the <b>DEBUGGING</b> area to view values as follows:</p>
+<table BORDER="1" CELLPADDING="10" CELLSPACING="0" BORDERCOLOR="#000066" BGCOLOR="#FFFF99">
+  <tr> 
+    <td>
+<pre>function check(form)
+{
+  var str = form.lastName.value
+
+  var result =    "str=" + str + "\n"
+                + "str.substring(5,7)=" + str.substring(5,7) + "\n"
+
+  form.DebuggingArea.value = result
+}</pre>
+
+	</td>
+  </tr>
+</table>
+
+</body>
+</html>

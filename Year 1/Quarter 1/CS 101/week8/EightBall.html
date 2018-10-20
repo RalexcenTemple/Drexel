@@ -1,0 +1,49 @@
+
+<html>
+<head>
+<title>Loop Generating and Testing, part 2</title>
+<script LANGUAGE="JavaScript">
+	function eightBall(){
+	var results = [ "Yes", "It Is Certain", "Better Not Tell You Now", "Yes Definitely", "My Sources Say No", "As I See It Yes", "Without a Doubt", "Most Likely"]
+	var r = Math.round(Math.random()*8)
+	
+	LoopForm.sample.value = results[r]
+	
+	return ""
+	}
+  </script>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link HREF="../../scripts/styles.css" REL="stylesheet" TYPE="text/css" />
+</head>
+
+<body bgcolor=#99EEEE>
+<table WIDTH="100%" BORDER="0" CELLPADDING="10" CELLSPACING="0">
+  <tr> 
+    <td BGCOLOR="#226644" VALIGN="MIDDLE"> <h1><font FACE="Arial, Helvetica, sans-serif" COLOR="#FFFFFF"> Eight Ball</font></h1></td>
+  </tr>
+</table>
+<p><i><font FACE="Arial, Helvetica, sans-serif"><b> Lets find fate</b></font></i></p>
+<p><i><font SIZE="1"><a HREF="mailto:JPopyack@MCS.Drexel.edu">Reed Ceniviva</a>, 
+  July. 1996. Revised Nov. 20XX, Nov. 20XX</font></i></p>
+<hr />
+<form NAME="LoopForm">
+  <table BORDER="0" WIDTH="100%" CELLPADDING="10">
+    <tr BGCOLOR="#339966" VALIGN="MIDDLE"> 
+      <td> <h3><font FACE="Arial, Helvetica, sans-serif">What does your future hold:</font></h3></td>
+      <td WIDTH="150"> <h3><font FACE="Arial, Helvetica, sans-serif">Fate?:</font></h3></td>
+    </tr>
+    <tr BGCOLOR="#FFFFFF"> 
+      <td> <p><font FACE="Arial, Helvetica, sans-serif">Click the button bellow to find out your fate <i>loop output</i>: <br />
+          you are to find your fate using this program.</font></p>
+        <p> <font FACE="Arial, Helvetica, sans-serif"> 
+          <input TYPE="button" NAME="GenerateSample" VALUE="Generate my fate" onclick="eightBall()" />
+          </font></p></td>
+      <td WIDTH="150"> <textarea NAME="sample" rows=6 cols=15></textarea> </td>
+    </tr>
+  </table>
+  <br />
+  <hr />
+  <p>&nbsp; 
+</p></form>
+</body>
+</html>

@@ -1,0 +1,447 @@
+   1              		.file	1 "project2ad.c"
+   2              	
+   3              	 # -G value = 8, Arch = 3000, ISA = 1
+   4              	 # GNU C version 3.2.2 (mips-dec-ultrix42)
+   5              	 #	compiled by GNU C version 2.95.4 20011002 (Debian prerelease).
+   6              	 # options passed:  -lang-c -iprefix -D__GNUC__=3 -D__GNUC_MINOR__=2
+   7              	 # -D__GNUC_PATCHLEVEL__=2 -D__GXX_ABI_VERSION=102 -D__ANSI_COMPAT -DMIPSEL
+   8              	 # -DR3000 -DSYSTYPE_BSD -D_SYSTYPE_BSD -Dbsd4_2 -Dhost_mips -Dmips
+   9              	 # -Dultrix -Dunix -D__ANSI_COMPAT -D__MIPSEL__ -D__R3000__
+  10              	 # -D__SYSTYPE_BSD__ -D_SYSTYPE_BSD -D__bsd4_2_ -D__host_mips__ -D__mips__
+  11              	 # -D__ultrix__ -D__unix__ -D__MIPSEL -D__R3000 -D__SYSTYPE_BSD -D__bsd4_2
+  12              	 # -D__host_mips -D__mips -D__ultrix -D__unix -Asystem=unix -Asystem=bsd
+  13              	 # -Acpu=mips -Amachine=mips -D__NO_INLINE__ -D__STDC_HOSTED__=1
+  14              	 # -D__LANGUAGE_C -D_LANGUAGE_C -DLANGUAGE_C -D__SIZE_TYPE__=unsigned int
+  15              	 # -D__PTRDIFF_TYPE__=int -D__SIZE_TYPE__=unsigned int
+  16              	 # -D__PTRDIFF_TYPE__=int -D__mips_fpr=32 -mrnames -g -O0 -fverbose-asm
+  17              	 # options enabled:  -fpeephole -ffunction-cse -fkeep-static-consts
+  18              	 # -fpcc-struct-return -fgcse-lm -fgcse-sm -fsched-interblock -fsched-spec
+  19              	 # -fbranch-count-reg -fcommon -fverbose-asm -fgnu-linker -fargument-alias
+  20              	 # -fident -fmath-errno -ftrapping-math -mgas -mrnames -march=3000
+  21              	 # -mno-flush-funccacheflush -mflush-func=cacheflush
+  22              	
+  25              		.text
+  26              	$Ltext0:
+  50              		.sdata
+  51              		.align	2
+  52              	$LC0:
+  53 ???? 6572726F 		.ascii	"error\n\000"
+  53      720A00
+  54              		.text
+  55              		.align	2
+  56              		.globl	main
+  57              	$LM1:
+   1:project2ad.c  **** int print_str (char *str);
+   2:project2ad.c  **** int __main ();
+   3:project2ad.c  **** int dummy();
+   4:project2ad.c  **** int setjmp(int v);
+   5:project2ad.c  **** int longjmp(int v);
+   6:project2ad.c  **** int fun1();
+   7:project2ad.c  **** int fun2();
+   8:project2ad.c  **** /* I grabbed a lot of code from other files weve been giving */
+   9:project2ad.c  **** /* in this class just to cut down on how much I had to type */
+  10:project2ad.c  **** 
+  11:project2ad.c  **** /* need these to be global so that we can still reach them outside the scope */
+  12:project2ad.c  **** /* of the setjmp function and the longjmp function */
+  13:project2ad.c  **** /* refference experiement 3 in files folder of the course */
+  14:project2ad.c  **** static int *RA;
+  15:project2ad.c  **** static int *FP;
+  16:project2ad.c  **** 
+  17:project2ad.c  **** 
+  18:project2ad.c  **** main ()
+  19:project2ad.c  **** 	{
+  59              		.ent	main
+  60              	main:
+  61              		.frame	$fp,112,$ra		# vars= 8, regs= 10/6, args= 16, extra= 0
+  62              		.mask	0xc0ff0000,-52
+  63              		.fmask	0xfff00000,-8
+  64 ???? 90FFBD27 		subu	$sp,$sp,112
+  65 ???? 3C00BFAF 		sw	$ra,60($sp)
+  66 ???? 3800BEAF 		sw	$fp,56($sp)
+  67              		sw	$s7,52($sp)
+  68              		sw	$s6,48($sp)
+  69              		sw	$s5,44($sp)
+  70              		sw	$s4,40($sp)
+  71              		sw	$s3,36($sp)
+  72              		sw	$s2,32($sp)
+  73              		sw	$s1,28($sp)
+  74              		sw	$s0,24($sp)
+  75 ???? 6800BEE7 		s.d	$f30,104($sp)
+  75      6C00BFE7 
+  76 ???? 6000BCE7 		s.d	$f28,96($sp)
+  76      6400BDE7 
+  77 ???? 5800BAE7 		s.d	$f26,88($sp)
+  77      5C00BBE7 
+  78 ???? 5000B8E7 		s.d	$f24,80($sp)
+  78      5400B9E7 
+  79 ???? 4800B6E7 		s.d	$f22,72($sp)
+  79      4C00B7E7 
+  80 ???? 4000B4E7 		s.d	$f20,64($sp)
+  80      4400B5E7 
+  81 ???? 21F0A003 		move	$fp,$sp
+  82 ???? 0000000C 		jal	__main
+  82      00000000 
+  83              	$LBB2:
+  84              	$LM2:
+  20:project2ad.c  **** 	int r;
+  21:project2ad.c  **** 	r= setjmp(r);
+  86              		lw	$a0,16($fp)	 #  r
+  87 ???? 0000000C 		jal	setjmp
+  87      00000000 
+  88              		sw	$v0,16($fp)	 #  r
+  89              	$LM3:
+  22:project2ad.c  **** 	if(r == 0){
+  91              		lw	$v0,16($fp)	 #  r
+  92              		bne	$v0,$zero,$L2
+  93              	$LM4:
+  23:project2ad.c  **** 		fun1();
+  95 ???? 0000000C 		jal	fun1
+  95      00000000 
+  96              	$LM5:
+  24:project2ad.c  **** 		return(0);
+  98 ???? 1400C0AF 		sw	$zero,20($fp)
+  99 ???? 00000008 		j	$L1
+  99      00000000 
+ 100              	$L2:
+ 101              	$LM6:
+  25:project2ad.c  **** 		
+  26:project2ad.c  **** 	}else{
+  27:project2ad.c  **** 		print_str("error\n");
+ 103              		la	$a0,$LC0
+ 104 ???? 0000000C 		jal	print_str
+ 104      00000000 
+ 105              	$LM7:
+  28:project2ad.c  **** 		return(2);
+ 107              		li	$v0,2			# 0x2
+ 108              		sw	$v0,20($fp)
+ 109              	$LBE2:
+ 110              	$LM8:
+  29:project2ad.c  **** 		}
+  30:project2ad.c  **** 	}
+ 112              	$L1:
+ 113              		lw	$v0,20($fp)
+ 114 ???? 21E8C003 		move	$sp,$fp
+ 115 ???? 3C00BF8F 		lw	$ra,60($sp)
+ 116 ???? 3800BE8F 		lw	$fp,56($sp)
+ 117              		lw	$s7,52($sp)
+ 118              		lw	$s6,48($sp)
+ 119              		lw	$s5,44($sp)
+ 120              		lw	$s4,40($sp)
+ 121              		lw	$s3,36($sp)
+ 122              		lw	$s2,32($sp)
+ 123              		lw	$s1,28($sp)
+ 124              		lw	$s0,24($sp)
+ 125 ???? 6800BEC7 		l.d	$f30,104($sp)
+ 125      6C00BFC7 
+ 126 ???? 6000BCC7 		l.d	$f28,96($sp)
+ 126      6400BDC7 
+ 127 ???? 5800BAC7 		l.d	$f26,88($sp)
+ 127      5C00BBC7 
+ 128 ???? 5000B8C7 		l.d	$f24,80($sp)
+ 128      5400B9C7 
+ 129 ???? 4800B6C7 		l.d	$f22,72($sp)
+ 129      4C00B7C7 
+ 130 ???? 4000B4C7 		l.d	$f20,64($sp)
+ 130      4400B5C7 
+ 131 ???? 7000BD27 		addu	$sp,$sp,112
+ 132 ???? 0800E003 		j	$ra
+ 132      00000000 
+ 133              		.end	main
+ 138              		.align	2
+ 139              		.globl	setjmp
+ 140              	$LM9:
+  31:project2ad.c  **** 	
+  32:project2ad.c  **** 
+  33:project2ad.c  **** setjmp(v)
+  34:project2ad.c  **** int v;
+  35:project2ad.c  **** 	{
+ 142              		.ent	setjmp
+ 143              	setjmp:
+ 144              		.frame	$fp,32,$ra		# vars= 8, regs= 2/0, args= 16, extra= 0
+ 145              		.mask	0xc0000000,-4
+ 146              		.fmask	0x00000000,0
+ 147 ???? E0FFBD27 		subu	$sp,$sp,32
+ 148 ???? 1C00BFAF 		sw	$ra,28($sp)
+ 149 ???? 1800BEAF 		sw	$fp,24($sp)
+ 150 ???? 21F0A003 		move	$fp,$sp
+ 151              		sw	$a0,32($fp)	 #  v
+ 152              	$LBB3:
+ 153              	$LM10:
+  36:project2ad.c  **** 		/* gets the lovation of the variable passed and assignes */
+  37:project2ad.c  **** 		/* the return address and frame pointer based off that */
+  38:project2ad.c  **** 		/* uses the dumby to complete the frame */
+  39:project2ad.c  **** 		/* makes use of global perameters to store addresses */
+  40:project2ad.c  **** 		int *add; 
+  41:project2ad.c  **** 		add = &v;
+ 155              		addu	$v0,$fp,32
+ 156              		sw	$v0,16($fp)	 #  add
+ 157              	$LM11:
+  42:project2ad.c  **** 		RA = (add - 1);
+ 159              		lw	$v0,16($fp)	 #  add
+ 160              		addu	$v0,$v0,-4
+ 161              		sw	$v0,RA	 #  RA
+ 162              	$LM12:
+  43:project2ad.c  **** 		FP = (add - 2);
+ 164              		lw	$v0,16($fp)	 #  add
+ 165              		addu	$v0,$v0,-8
+ 166              		sw	$v0,FP	 #  FP
+ 167              	$LM13:
+  44:project2ad.c  **** 		dummy (v);
+ 169              		lw	$a0,32($fp)	 #  v
+ 170 ???? 0000000C 		jal	dummy
+ 170      00000000 
+ 171              	$LM14:
+  45:project2ad.c  **** 		return(0);
+ 173              		move	$v0,$zero
+ 174              	$LBE3:
+ 175              	$LM15:
+  46:project2ad.c  **** 	}
+ 177 ???? 21E8C003 		move	$sp,$fp
+ 178 ???? 1C00BF8F 		lw	$ra,28($sp)
+ 179 ???? 1800BE8F 		lw	$fp,24($sp)
+ 180 ???? 2000BD27 		addu	$sp,$sp,32
+ 181 ???? 0800E003 		j	$ra
+ 181      00000000 
+ 182              		.end	setjmp
+ 188              		.align	2
+ 189              		.globl	longjmp
+ 190              	$LM16:
+  47:project2ad.c  **** 	
+  48:project2ad.c  **** longjmp(v)
+  49:project2ad.c  **** int v;
+  50:project2ad.c  **** 	{
+ 192              		.ent	longjmp
+ 193              	longjmp:
+ 194              		.frame	$fp,32,$ra		# vars= 8, regs= 2/0, args= 16, extra= 0
+ 195              		.mask	0xc0000000,-4
+ 196              		.fmask	0x00000000,0
+ 197 ???? E0FFBD27 		subu	$sp,$sp,32
+ 198 ???? 1C00BFAF 		sw	$ra,28($sp)
+ 199 ???? 1800BEAF 		sw	$fp,24($sp)
+ 200 ???? 21F0A003 		move	$fp,$sp
+ 201              		sw	$a0,32($fp)	 #  v
+ 202              	$LBB4:
+ 203              	$LM17:
+  51:project2ad.c  **** 		/* uses the same concept as setjmp to retrieve */
+  52:project2ad.c  **** 		/* and assign address locations */
+  53:project2ad.c  **** 		int *add;
+  54:project2ad.c  **** 		add = &v;
+ 205              		addu	$v0,$fp,32
+ 206              		sw	$v0,16($fp)	 #  add
+ 207              	$LM18:
+  55:project2ad.c  **** 		*(add - 1) = *(RA);
+ 209              		lw	$v0,16($fp)	 #  add
+ 210              		addu	$v1,$v0,-4
+ 211              		lw	$v0,RA	 #  RA
+ 212              		lw	$v0,0($v0)
+ 213              		sw	$v0,0($v1)
+ 214              	$LM19:
+  56:project2ad.c  **** 		*(add - 2) = *(FP);
+ 216              		lw	$v0,16($fp)	 #  add
+ 217              		addu	$v1,$v0,-8
+ 218              		lw	$v0,FP	 #  FP
+ 219              		lw	$v0,0($v0)
+ 220              		sw	$v0,0($v1)
+ 221              	$LM20:
+  57:project2ad.c  **** 		dummy (v);
+ 223              		lw	$a0,32($fp)	 #  v
+ 224 ???? 0000000C 		jal	dummy
+ 224      00000000 
+ 225              	$LM21:
+  58:project2ad.c  **** 		return(1);
+ 227              		li	$v0,1			# 0x1
+ 228              	$LBE4:
+ 229              	$LM22:
+  59:project2ad.c  **** 	}
+ 231 ???? 21E8C003 		move	$sp,$fp
+ 232 ???? 1C00BF8F 		lw	$ra,28($sp)
+ 233 ???? 1800BE8F 		lw	$fp,24($sp)
+ 234 ???? 2000BD27 		addu	$sp,$sp,32
+ 235 ???? 0800E003 		j	$ra
+ 235      00000000 
+ 236              		.end	longjmp
+ 242              		.rdata
+ 243              		.align	2
+ 244              	$LC1:
+ 245 ???? 73746172 		.ascii	"start fun1\n\000"
+ 245      74206675 
+ 245      6E310A00 
+ 246              		.text
+ 247              		.align	2
+ 248              		.globl	fun1
+ 249              	$LM23:
+  60:project2ad.c  **** 	
+  61:project2ad.c  **** fun1()
+  62:project2ad.c  **** 	{
+ 251              		.ent	fun1
+ 252              	fun1:
+ 253              		.frame	$fp,24,$ra		# vars= 0, regs= 2/0, args= 16, extra= 0
+ 254              		.mask	0xc0000000,-4
+ 255              		.fmask	0x00000000,0
+ 256 ???? E8FFBD27 		subu	$sp,$sp,24
+ 257 ???? 1400BFAF 		sw	$ra,20($sp)
+ 258 ???? 1000BEAF 		sw	$fp,16($sp)
+ 259 ???? 21F0A003 		move	$fp,$sp
+ 260              	$LM24:
+  63:project2ad.c  **** 		print_str("start fun1\n");
+ 262              		la	$a0,$LC1
+ 263 ???? 0000000C 		jal	print_str
+ 263      00000000 
+ 264              	$LM25:
+  64:project2ad.c  **** 		fun2();
+ 266 ???? 0000000C 		jal	fun2
+ 266      00000000 
+ 267              	$LM26:
+  65:project2ad.c  **** 		return(0);
+ 269              		move	$v0,$zero
+ 270              	$LM27:
+  66:project2ad.c  **** 	}
+ 272 ???? 21E8C003 		move	$sp,$fp
+ 273 ???? 1400BF8F 		lw	$ra,20($sp)
+ 274 ???? 1000BE8F 		lw	$fp,16($sp)
+ 275 ???? 1800BD27 		addu	$sp,$sp,24
+ 276 ???? 0800E003 		j	$ra
+ 276      00000000 
+ 277              		.end	fun1
+ 279              		.rdata
+ 280              		.align	2
+ 281              	$LC2:
+ 282 ???? 73746172 		.ascii	"start fun2\n\000"
+ 282      74206675 
+ 282      6E320A00 
+ 283              		.text
+ 284              		.align	2
+ 285              		.globl	fun2
+ 286              	$LM28:
+  67:project2ad.c  **** 	
+  68:project2ad.c  **** fun2()
+  69:project2ad.c  **** 	{	
+ 288              		.ent	fun2
+ 289              	fun2:
+ 290              		.frame	$fp,32,$ra		# vars= 8, regs= 2/0, args= 16, extra= 0
+ 291              		.mask	0xc0000000,-4
+ 292              		.fmask	0x00000000,0
+ 293              	$LBB5:
+ 294 ???? E0FFBD27 		subu	$sp,$sp,32
+ 295 ???? 1C00BFAF 		sw	$ra,28($sp)
+ 296 ???? 1800BEAF 		sw	$fp,24($sp)
+ 297 ???? 21F0A003 		move	$fp,$sp
+ 298              	$LM29:
+  70:project2ad.c  **** 		int d;
+  71:project2ad.c  **** 		print_str("start fun2\n");
+ 300              		la	$a0,$LC2
+ 301 ???? 0000000C 		jal	print_str
+ 301      00000000 
+ 302              	$LM30:
+  72:project2ad.c  **** 		longjmp(d);
+ 304              		lw	$a0,16($fp)	 #  d
+ 305 ???? 0000000C 		jal	longjmp
+ 305      00000000 
+ 306              	$LM31:
+  73:project2ad.c  **** 		return(0);
+ 308              	$LBE5:
+ 309              	$LM32:
+  74:project2ad.c  **** 	}
+ 311              		.end	fun2
+ 316              		.align	2
+ 317              		.globl	print_str
+ 318              	$LM33:
+  75:project2ad.c  **** 	
+  76:project2ad.c  **** print_str (str)
+  77:project2ad.c  **** char *str;
+  78:project2ad.c  **** 	{
+ 320              		.ent	print_str
+ 321              	print_str:
+ 322              		.frame	$fp,16,$ra		# vars= 8, regs= 1/0, args= 0, extra= 0
+ 323              		.mask	0x40000000,-8
+ 324              		.fmask	0x00000000,0
+ 325 ???? F0FFBD27 		subu	$sp,$sp,16
+ 326 ???? 0800BEAF 		sw	$fp,8($sp)
+ 327 ???? 21F0A003 		move	$fp,$sp
+ 328              		sw	$a0,16($fp)	 #  str
+ 329              	$LBB6:
+ 330              	$LM34:
+  79:project2ad.c  **** 		int code;
+  80:project2ad.c  **** 		code = 4;
+ 332              		li	$v0,4			# 0x4
+ 333              		sw	$v0,0($fp)	 #  code
+ 334              	$LM35:
+  81:project2ad.c  **** 		asm (
+ 336              		lw	$v1,0($fp)	 #  code
+ 337              		lw	$v0,16($fp)	 #  str
+ 338              	 #APP
+ 339              		add $a0,$v0,$zero
+ 340              		add $v0,$v1,$zero
+ 341 ???? 0C000000 		syscall
+ 342              	$LM36:
+  82:project2ad.c  **** 			"add $a0,%1,$zero\n\t"
+  83:project2ad.c  **** 			"add $v0,%0,$zero\n\t"
+  84:project2ad.c  **** 			"syscall"
+  85:project2ad.c  ****        :
+  86:project2ad.c  ****        : "r" (code), "r" (str));
+  87:project2ad.c  **** 		return(0);
+ 344              	 #NO_APP
+ 345              		move	$v0,$zero
+ 346              	$LBE6:
+ 347              	$LM37:
+  88:project2ad.c  **** 	}
+ 349 ???? 21E8C003 		move	$sp,$fp
+ 350 ???? 0800BE8F 		lw	$fp,8($sp)
+ 351 ???? 1000BD27 		addu	$sp,$sp,16
+ 352 ???? 0800E003 		j	$ra
+ 352      00000000 
+ 353              		.end	print_str
+ 359              		.align	2
+ 360              		.globl	__main
+ 361              	$LM38:
+  89:project2ad.c  **** 	
+  90:project2ad.c  **** __main ()
+  91:project2ad.c  **** 	{
+ 363              		.ent	__main
+ 364              	__main:
+ 365              		.frame	$fp,8,$ra		# vars= 0, regs= 1/0, args= 0, extra= 0
+ 366              		.mask	0x40000000,-8
+ 367              		.fmask	0x00000000,0
+ 368 ???? F8FFBD27 		subu	$sp,$sp,8
+ 369 ???? 0000BEAF 		sw	$fp,0($sp)
+ 370 ???? 21F0A003 		move	$fp,$sp
+ 371              	$LM39:
+  92:project2ad.c  ****   return(0);
+ 373              		move	$v0,$zero
+ 374              	$LM40:
+  93:project2ad.c  **** 	}
+ 376 ???? 21E8C003 		move	$sp,$fp
+ 377 ???? 0000BE8F 		lw	$fp,0($sp)
+ 378 ???? 0800BD27 		addu	$sp,$sp,8
+ 379 ???? 0800E003 		j	$ra
+ 379      00000000 
+ 380              		.end	__main
+ 382              		.align	2
+ 383              		.globl	dummy
+ 384              	$LM41:
+  94:project2ad.c  **** 
+  95:project2ad.c  **** dummy ()
+  96:project2ad.c  **** 	{
+ 386              		.ent	dummy
+ 387              	dummy:
+ 388              		.frame	$fp,8,$ra		# vars= 0, regs= 1/0, args= 0, extra= 0
+ 389              		.mask	0x40000000,-8
+ 390              		.fmask	0x00000000,0
+ 391 ???? F8FFBD27 		subu	$sp,$sp,8
+ 392 ???? 0000BEAF 		sw	$fp,0($sp)
+ 393 ???? 21F0A003 		move	$fp,$sp
+ 394              	$LM42:
+  97:project2ad.c  ****   return(0);
+ 396              		move	$v0,$zero
+ 397              	$LM43:
+  98:project2ad.c  **** 	}
+ 399 ???? 21E8C003 		move	$sp,$fp
+ 400 ???? 0000BE8F 		lw	$fp,0($sp)
+ 401 ???? 0800BD27 		addu	$sp,$sp,8
+ 402 ???? 0800E003 		j	$ra
+ 402      00000000 
+ 403              		.end	dummy
+ 405              	
+ 406              		.lcomm	RA,4
+ 407              	
+ 408              		.lcomm	FP,4

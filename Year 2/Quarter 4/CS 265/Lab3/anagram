@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#anagram, find all anagrams withing a file and sort them into classes using
+#other utilities out | sort -n | 
+
+./sign < /usr/share/dict/words | sort | ./squash > out 
+awk '{print NF " " $0}' out | sort -nr 

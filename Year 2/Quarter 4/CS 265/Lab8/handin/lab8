@@ -1,0 +1,139 @@
+Reed Ceniviva
+text answers for lab 8
+
+Part 1: Interfaces:
+1.1: describe what is meant by each of the following
+i:Hide implementation details:
+	This  means that parts of the interface that are most likely to change
+later on should be hiden from the rest to reduce development risk so that if
+they need to be changed later on, the code and itself are not entirely
+dependent on one another to work the way they were intialy created to work.
+
+ii:Choose small orthogonal set of primitives:
+	This implies that the interface should use variable types and functions
+that provide as much functionality as possible that will not overlap the
+capabilities of the other functions. these functions or constructs are then
+able to be applied in different combinations to accomplish the tasked
+needed.
+
+iii:Don't reach behind the users back:
+	This means that the interface should not create data or change data
+without the users knowledge.
+
+iv:Do the same thing the same way everywhere:
+	This is meant to tell the programmer that they should use the same style
+and structure in all of their programming as well as the way the programming
+is used. so if the order that information is sent in one function is int
+string bool, then you should probably keep that same order of variables for
+other functions. 
+
+------------------------------------------------------------------------
+	(for running the files i have copied them to my directory and used gcc -o
+[exe-file-name] [c-file-name.c] to compile them and then use
+./[exe-file-name] to run them.)
+------------------------------------------------------------------------
+1.2:What are the problems w/the first implementation in C
+	pretty sure that because buf is set to a preditermined size it means that it can only take so many characters or strings at a time. The field class is
+also set to some magic number predefined so that could be an issue later on
+if not changed. to add to this problem, I dont believe that the program ever
+makes sure that the memory that it is using is actually there. personally would have liked a bit more indepth comments,
+ not only cause it might have made this lab a bit easier but also just cause
+I think the information provided is a bit scarse. to note, the sample input
+and output for Question 1.7 is different when sent throught this program,
+when this program is given ["he said, ""what?!!"""] it returns as fields,
+[he said] and [""what?!!"""] rather than [he said, "what?!!"], this
+shows that there is an error most likely with the way that unquote is
+implemented, as well as the way the fields are broken up. I would think that
+it is a result of the quotes being in different fields and that not being
+accounted for by the program. there is also the fact the this program does
+not recognize empty fields, if passed [,,] as part of the string line, it
+will be skipped over and not included in the fields. otherwise
+I cant seems time see other errors, this program seems to use the same
+style everywhere, doesnt reach behind the users back, I dont think that
+there is anything that needs to be hidden that isn't already, and the
+functions all seem to do seperate and different things and are implemented
+together as need be. to add onto this after looking closer at this and the
+later revisions, I realized that if you were to want to give it multiple
+files to return the fields then this program will not work. 
+
+------------------------------------------------------------------------
+
+1.3:What things are improved upon in the first revision in C?
+	something that the revision improves is that it no longer has values set for the buff or
+the field so I would guess that there are no longer a limit  on the size of the
+intake of the string or file. Here I noticed that they had also partially
+fixed the check for allocating memory for the program by making sure that
+the program is not out of memory before running. when running the
+sample input for question 7 for this revision it now returns the correct
+output. to add to the output of this version of the progra, it seems that
+when given ",," as input as talked about in the last answer, it instead sees
+this as a field rather than something that should be skipped over. something nice about this revision is that it also tells you what
+the line that it took in looks like to the program while the first version
+did not include this.
+
+------------------------------------------------------------------------
+
+1.4:what problems does the first revision still have? can you parse 2
+different csv files at the same time?
+	 Because of
+the nature of the main function and the way that it calls csvgetlines,
+itwill end premature because of the return value of csvgetline, the end of
+the first file that is passed will return null before the next file is
+given, this null value will then end the while loop that the main function
+uses in order to move through the files. since this loop will almost always
+end after the first file has been read, it will never get to the second file
+given.when passing the first version of the program an empty field such as "
+,,"
+it correctly steps over the double commas and does not include them as a
+field in the final output while the revision of the program will return a
+n 
+empty field when ",," is read in. If I remember correctly an empty field
+should not be included in the output of this program and so though this i
+s 
+not something that wasn't fixed from the first version to the second 
+version, it is something that no longer works in the revision. 
+
+-----------------------------------------------------------------------
+
+1.5:Does the C++ implementation solve these problems? what issues still
+remain?
+	within the C++ version of this program, a few things are cleaned up, a
+lot of the variables that were decleared at the begining of the c version
+and c revision are put into pbulic and private areas, this is not only good
+programming practice but also helps with keeping certian information and
+data away from the user so that there is less chance of a cicurity breach.
+having the program be written as a class also provides better organization
+and mobility for the program, allowing it to be edited without a wide change
+in side affects after the fact. this implementation of the program also
+provides much greater functionality providing a getfield function to obtain
+a field at a specific index. I think that the way that I am implementing the
+compiled version of the program is askew, I havent been able to get the
+programs to run using files since the revision of the C version of the
+program though I would really expect at this point for the program to work
+correctly by passing it a file or multiple files at this point. a persisting
+error seems to be the fact that the empty fields such as [,,] are being seen
+as seperate fields and are being given the output of [] (by this I mean
+there is no output for them), If I'm understanding the purpose of this
+program correctly, empty field such as those should not be included in the
+output as they are useless to a user. 
+
+------------------------------------------------------------------------
+
+1.6:Does the C++ implementation of the interface pertain to our good
+guildines for interfaces?
+	As far as I can tell, the C++ version of the interface has pretty good
+structure for an interface, information is not created unnessacarily for the
+program to run so it doesn't "reach behind the users back". As far as making
+everything the same everywhere goes, the functions advplain and advquoted
+both take their arguements in the same type and order as each other so that
+is a good practice for interfaces that we talked about, the naming
+conventions for the variables are logical and understandable and consistant
+throughout. the duties of the functions are pretty independent of one
+another so they dont step on each others toes, this is parralel to the idea
+of using orthoganol types and making sure that the functions dont do the
+same thing as other functions. this also allows the program to have a higher
+level of flexibility withing the range of what the program is meant to do.
+ 
+------------------------------------------------------------------------
+
+

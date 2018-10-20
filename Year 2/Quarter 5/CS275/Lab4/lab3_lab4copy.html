@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Lab 3 | Reed Ceniviva</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+<body>
+<h2>Lab 3 Calculator</h2>
+<input type="text" id="seed">
+</input></br></br>
+<select id="calcOpt">
+<option value="-------" font="grey">-------</option>
+<option value="Factorial" text="Factorial">Factorial</option>
+<option value="Summation" text="Summation">Summation</option>
+</select></br></br>
+<button id="launch">Submit</button>
+</br></br>
+<div id="test"></div></br></br>
+<div id="test2"></div>
+<script>
+	$("#launch").click(function(){
+		var calc = $("#calcOpt").find("option:selected").html();
+		var ui =! isNaN($("#seed").val());
+		var seeded = $("#seed").val();
+		
+		//catch possible misinputs
+		if(seeded < 1 && ui){
+			$("#test2").text("Please  select a calculation and enter a postivie number");
+		}else if(calc === "Factorial" && ui){
+			calc = "fact";
+			$("#test2").text("");
+		}else if(calc === "Summation" && ui){
+			calc = "sum";
+			$("#test2").text("");
+		}else if(calc === "-------" && ui){
+			$("#test2").text("Please select one of the calculations to be performed");
+		};
+		//sending and recieving information using node js and AJAX
+		var jsn = {"n" : seeded};
+		
+				var URL =  "http://localhost:8080/" + calc;
+				$.ajax({
+					type: "GET",
+					url: URL,
+					contentType:  "application/json; charset=utf-8",
+					data: jsn,
+					dataType: "html",
+					success: function(result) {
+						var json = result;
+						$("#test").text("The result of the calculation for " + seeded + " is: " + json);
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						$("#test").text("ERROR");
+					}
+				});
+	});
+</script>
+</body>
+</html>

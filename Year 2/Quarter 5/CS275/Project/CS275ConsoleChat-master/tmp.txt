@@ -1,0 +1,17 @@
+	connection.query('SELECT * FROM message WHERE (receiver = "*" || receiver = '+recipient+') && timestamp > lastLoadTime' , function(err,rows,fields){
+		if(err) throw err;
+		for (var i = 0; i < rows.length; i++) {
+			html+="["+rows[i].timestamp+"] " + rows[i].sender + "> " + rows[i].message + "<\br>";
+		}
+		res.send(html);
+	});
+
+connection.query('SELECT userID FROM users',function(err,rows,fields){
+		if(err) throw err;
+		for(var i = 0; i < rows.length;i++){
+			if(rows[i].userID == userID){
+				res.send(html);
+			}
+		}
+		throw err;
+	});

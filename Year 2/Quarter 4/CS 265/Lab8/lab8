@@ -1,0 +1,32 @@
+Reed Ceniviva
+text answers for lab 8
+
+Part 1: Interfaces:
+1.1: describe what is meant by each of the following
+i:Hide implementation details:
+	This  means that parts of the interface that are most likely to change
+later on should be hiden from the rest to reduce development risk so that if
+they need to be changed later on, the code and itself are not entirely
+dependent on one another to work the way they were intialy created to work.
+
+ii:Choose small orthogonal set of primitives:
+	This implies that the interface should use variable types and functions
+that provide as much functionality as possible that will not overlap the
+capabilities of the other functions. these functions or constructs are then
+able to be applied in different combinations to accomplish the tasked
+needed.
+
+iii:Don't reach behind the users back:
+	This means that the interface should not create data or change data
+without the users knowledge or consent.
+
+iv:Do the same thing the same way everywhere:
+	This is meant to tell the programmer that they should use the same style
+and structure in all of their programming as well as the way the programming
+is used. so if the order that information is sent in one function is int
+string bool, then you should probably keep that same order of variables for
+other functions. 
+
+1.2:What are the problems w/the first implementation in C
+pretty sure that because buf is set to a preditermined size it means that it
+can only take so many characters or strings at a time. 

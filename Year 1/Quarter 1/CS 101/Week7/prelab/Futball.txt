@@ -1,0 +1,47 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!--
+	This page is provided for calculating and testing
+	arithmetic expressions.
+	
+-->
+<HEAD>
+<TITLE>Calculations in JavaScript</TITLE>
+</HEAD>
+
+<BODY>
+<H1>Quarterback Rating</H1>
+<P>Modify the JavaScript script on this page to calculate a Quarterback Rating.</P>
+<script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+
+// ---------------------------------------------------------------
+//  Fill in numerical values for A, C, Y, I, and T
+// ---------------------------------------------------------------
+
+	var A = 461     // Attempts
+	var C = 324     // Completions
+	var Y = 3696     // Yardage
+	var I = 35     // Interceptions
+	var T = 10     // Touchdowns
+
+// ---------------------------------------------------------------
+//  Fill in an arithmtic expression for computing Rating,
+//  using the variables A, C, I, T, and Y shown above, plus any
+//  needed constants.
+// ---------------------------------------------------------------
+
+	var Rating = A
+
+	document.write("Simplified Quarterback Rating Formula:<P>"
+				+ "Attempts (A) = " + A + "<BR>"
+				+ "Completions (C) = " + C + "<BR>"
+				+ "Yardage (Y) = " + Y + "<BR>"
+				+ "Interceptions (I) = " + I + "<BR>"
+				+ "Touchdowns (T) = " + T + "<P>"
+				+ "Rating = " + Rating )
+
+</SCRIPT>
+
+</BODY>
+</HTML>

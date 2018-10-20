@@ -1,0 +1,80 @@
+<html>
+
+<!-- 
+     Form template
+     
+     This worksheet contains a simple
+     "skeleton form" with two text boxes
+     (named input and output) and one button
+     labeled "Process Form".
+     
+     A function called "Process" is provided
+     which provides the framework for retrieving
+     the value of input and returning a value in 
+     output.
+     
+     JL Popyack
+     
+     Revisions: 
+     JL Popyack, Oct. 2010 -- updated w/getElementByID
+     JL Popyack, Oct. 2013 -- reformatted
+-->
+
+<head>
+    <title>Form Template</title>
+    
+    <script LANGUAGE="JavaScript">
+    <!-- hide from uneducated browsers
+
+
+	  function Verse(objects, destination)
+	  {
+	      document.write("<p>")
+	      document.write("Where have all the " + objects + " gone? <br />")
+	      document.write("Long time passing. <br />")
+	      document.write("Where have all the " + objects + " gone? <br />")
+	      document.write("Long time ago. <br />")
+	      document.write("Where have all the " + objects + " gone? <br />")
+	      document.write("Gone to " + destination + ", everyone. <br />")
+	      document.write("When will they ever learn? <br />")
+	      document.write("When will they ever learn? <br />")
+		  
+	
+	  }
+	  
+	  function newVerse(objects, destination){
+	  
+		  var result = "Where have all the " + objects + " gone? \n"+"Long time passing. \n"+"Where have all the " + objects + " gone? \n"+"Long time ago. \n"+"Where have all the " + objects + " gone? \n"+"Gone to " + destination + ", everyone. \n"+"When will they ever learn? "+"When will they ever learn? "
+			
+			return result
+	  
+	  }
+
+  // end hiding from uneducated browsers  -->
+  </script>
+
+<style TYPE="text/css">
+body 
+{
+	background-color: lightsteelblue;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Sample Form:</h1>
+
+<form>
+   <b>objects</b>: <input TYPE="text" NAME="objects" ID="objectsID" SIZE="50" />
+   <p>
+   <b>destination</b>: <input TYPE="text" NAME="destination" ID="destinationID" SIZE="50" />
+   </p><p>
+   <input TYPE="button" VALUE="Process Input" onClick="versebox.value = versebox.value + newVerse(this.form.objectsID.value,this.form.destinationID.value)" />
+   </p><p>
+   <textarea name="versebox" cols=60 rows=5 wrap=virtual></textarea>
+   </p>
+</form>
+
+</body>
+</html>
