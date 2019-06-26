@@ -1,0 +1,4 @@
+Introduces the field of human-computer interaction, with a broad scope that exposes students to a variety of approaches for 
+conceptualizing, designing, and evaluating user interfaces and user experiences. Focuses on using design thinking to define 
+problems and solutions, and developing skills for critiquing interactive systems. Topics include interaction design principles, 
+user experience research, usability evaluation, and novel interaction paradigms.

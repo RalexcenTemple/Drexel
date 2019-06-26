@@ -1,0 +1,4 @@
+Follows CI 102 in the Computing & Informatics design sequence. Introduces computing and informatics through a combination of 
+lectures and hands-on laboratory exercises. Lectures emphasize an integrated view of topic areas and systems, spanning low-level 
+software and implementation issues to high-level use and acceptance by individuals and communities. Lab exercises allow students 
+to explore familiar systems in unique and novel ways to better understand how these systems are designed and used.

@@ -1,0 +1,3 @@
+An introduction to the field of computer science. Exposure to core areas (selected from algorithms, artificial intelligence, 
+computer architecture, databases, graphics, human-computer interaction, programming languages, scientific computation, software engineering) 
+while introducing and reinforcing the importance of programming.

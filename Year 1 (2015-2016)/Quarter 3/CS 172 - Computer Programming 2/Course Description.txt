@@ -1,0 +1,2 @@
+Covers object-oriented design, inheritance hierarchies, information hiding principles, string processing, 
+recursion, good programming style, documentation, debugging, and testing.

@@ -1,0 +1,4 @@
+Introduces formal logic and its connections to Computer Science. Students learn to translate statements about 
+the behavior of computer programs into logical claims and to prove such assertions using both traditional techniques 
+and automated tools. Considers approaches to proving termination, correctness, and safety for programs. Discusses propositional 
+and predicate logic, logical inference, recursion and recursively defined sets, mathematical induction, and structural induction.
